@@ -46,8 +46,21 @@ The thesis and the evidence are the same (see `docs/AI_Manifesto_intent.md`, dec
 
 Sizes: Figures (40–80 parts) by default; the loop and the ladder are Heroes. No Epics.
 
-## Open decisions for part 2
+## Decisions (17 Oct 2026)
 
-- Talk length (20 / 30 / 45 min) and whether the leave-behind is v3 as printed or a v4 handout.
-- Stage theme: dark (Obsidian tokens) or paper.
-- Whether the 2029 fork is a live audience vote.
+| | Decision |
+|---|---|
+| Stage theme | **Paper** — Anatomy's `paper` theme; continuous with the v3 Broadsheet |
+| Length | **30 minutes**, about 8 machines |
+| Format | **HTML deck** — arrow keys, the Anatomy machines stay live on stage |
+| 2029 fork | **Live audience vote** — QR code on screen, tally before the close |
+
+## Build order
+
+1. **F2 · the token meter** — pilot figure; sets scale, theme and the deck's figure frame for the rest.
+2. F2B balance scale, F9 vending machine, F3 building section (the state of the market).
+3. The loop and the ladder (Heroes).
+4. Chain of command (the new figure for selling up).
+5. Deck shell: slides, speaker notes, vote.
+
+Figures live in `v4/figures/<slot>/` with their `build.mjs`; each writes a standalone page and a fragment the deck imports.
