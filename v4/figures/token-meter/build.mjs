@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 import * as k from "../_anatomy/kit/iso-kit.mjs";
 import { kitScript } from "../_anatomy/inline-kit.mjs";
 import { PAPER_CSS } from "../_anatomy/paper.mjs";
+import { STAGE_CSS } from "../_anatomy/stage.mjs";
 import * as M from "./model.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -25,11 +26,11 @@ const HOUSING_H = 18;
 const BEZEL_R = 52, BEZEL_Z = HOUSING_H, BEZEL_H = 7;
 const FACE_R = 46, FACE_Z = BEZEL_Z + BEZEL_H, FACE_H = 1.6;
 const FT = FACE_Z + FACE_H;                // dial face top
-const ARC_R = 41;                          // scale arc
-const NEEDLE_R = 36; // the tip rides the inner scale arc
+const ARC_R = 36;                          // scale arc: ticks run inward, numerals sit outside it
+const NEEDLE_R = ARC_R - 5; // the tip rides the inner scale arc, clear of the numerals
 const A0 = (-135 * Math.PI) / 180, SPAN = (270 * Math.PI) / 180, DECADES = 7, LOG0 = 5;
 const angleOf = (tokens) => A0 + (SPAN * (Math.log10(tokens) - LOG0)) / DECADES;
-const PER_DECADE = (SPAN * ARC_R) / DECADES; // ≈ 27.6 units of arc per ×10
+const PER_DECADE = (SPAN * ARC_R) / DECADES; // ≈ 24.2 units of arc per ×10
 
 const WINDOW = { x: C[0] - 13, y: C[1] + 29, w: 26, d: 7, r: 3.5 };
 const LUG_FRONT = { x: C[0] - 14, y: HOUSING.y + HOUSING.d, w: 28, d: 13, r: 4 };
@@ -38,18 +39,19 @@ const TAB = { x: C[0] - 3, y: C[1] + BEZEL_R - 1, w: 6, d: 5, r: 1 };
 
 const RAIL_FROM = 14, RAIL_TO = 156;
 const RAILS = [-30, -6];
-const STRIP = { x: RAIL_FROM, y: 8, w: RAIL_TO - RAIL_FROM, d: 8, r: 1 };
-const PX0 = 24;                            // x of $1,000 / M on the tariff ruler
+const STRIP = { x: RAIL_FROM, y: 8, w: RAIL_TO - RAIL_FROM, d: 14, r: 1 };
+const PX0 = 36;                            // x of $1,000 / M on the tariff ruler
 const priceX = (price) => PX0 + (3 - Math.log10(price)) * PER_DECADE;
 const CARRIAGE = { x: -13, y: -36, w: 26, d: 42, r: 3 };
 const CARRIAGE_Z = 3, CARRIAGE_H = 5, CARRIAGE_TOP = CARRIAGE_Z + CARRIAGE_H;
 const TAG = { x: -9, y: -27, w: 18, d: 20, r: 2 };
 const TAG_H = 4;
 
-const KNOB = [118, 50];
-const KNOB_A0 = (-120 * Math.PI) / 180, KNOB_SPAN = (240 * Math.PI) / 180;
+const KNOB = [124, 46];
+// the sweep runs round the back (left → right) so the printed years sit in the open plate, not under the fin
+const KNOB_A0 = (-90 * Math.PI) / 180, KNOB_SPAN = (180 * Math.PI) / 180;
 const knobAngle = (u) => KNOB_A0 + (KNOB_SPAN * u) / M.LAST;
-const BASE_R = 17, BASE_H = 1.2, KNOB_R = 8.5, KNOB_H = 6, CAP_R = 6.2, CAP_H = 1.2;
+const BASE_R = 24, BASE_H = 1.2, KNOB_R = 8.5, KNOB_H = 6, CAP_R = 6.2, CAP_H = 1.2;
 const KNOB_TOP = BASE_H + KNOB_H + CAP_H;
 
 const LABEL = { x: -154, y: 54, w: 52, d: 12, r: 1.5 };
@@ -58,7 +60,7 @@ const P = k.fitProjection(
   [...k.boxCorners(PLATE, -PLATE_H - FOOT_H, 0), [C[0], C[1] - BEZEL_R, FT], [C[0] - BEZEL_R, C[1], FT], [KNOB[0], KNOB[1], KNOB_TOP]],
   WIDTH,
   HEIGHT,
-  { pad: 34, azimuth: 38 },
+  { pad: 18, azimuth: 38 },
 );
 
 const at = (point) => k.iso(point, P);
@@ -121,6 +123,12 @@ function meterFace() {
     if (d < LOG0 + DECADES) for (let m = 2; m <= 9; m++) minor.push(tick(C, angleOf(m * 10 ** d), ARC_R, ARC_R - 2.6, FT));
   }
   out.push(L(minor.join(""), { tone: "lo" }), L(major.slice(1).join(""), { tone: "mid" }), L(major[0], { tone: "hi" }));
+  // printed decade numerals: the meter's own scale, sized to read from the back of a room
+  const DECADE_NAMES = ["100K", "1M", "10M", "100M", "1B", "10B", "100B", "1T"];
+  DECADE_NAMES.forEach((name, i) => {
+    const [x, y] = polar(C, angleOf(10 ** (LOG0 + i)), ARC_R + 5);
+    out.push(k.faceTextSvg(k.topMatrix([x, y + 1.6], FT, P, "x"), name, { size: 4.6, tone: i === 0 ? "hi" : "mid", anchor: "middle" }));
+  });
   // the team's month: a small wedge outside the arc
   const team = angleOf(M.TEAM.tokens);
   out.push(`<path class="iso-line" data-tone="hi" style="fill:var(--anatomy-hi)" d="${k.onTop([polar(C, team, ARC_R), polar(C, team - 0.035, ARC_R + 3.4), polar(C, team + 0.035, ARC_R + 3.4)], FT, P, true)}"/>`);
@@ -128,7 +136,7 @@ function meterFace() {
   const plateScrews = [Math.PI * 0.86, Math.PI * 1.14].map((a) => polar(C, a, 30));
   out.push(L(plateScrews.map(([x, y]) => k.ring(x, y, 1.6, FT, P, 14)).join(""), { tone: "lo" }), D(plateScrews.map(([x, y]) => at([x, y, FT])), { size: 0.4 }));
   // the engraved name plate of the register
-  out.push(k.faceTextSvg(k.topMatrix([C[0], C[1] + 21], FT, P, "x"), "TOKENS / MONTH", { size: 2.6, tone: "lo", anchor: "middle" }));
+  out.push(k.faceTextSvg(k.topMatrix([C[0], C[1] + 13], FT, P, "x"), "TOKENS / MONTH", { size: 3.2, tone: "lo", anchor: "middle" }));
   // the rotor window: the disc's rim marks pass under it
   out.push(`<clipPath id="tm-window"><path d="${k.planOutline(WINDOW, FT, P, 4)}"/></clipPath>`);
   out.push(`<path class="iso-fill" style="fill:var(--anatomy-shade-1)" d="${k.planOutline(WINDOW, FT, P, 4)}"/>`);
@@ -185,6 +193,8 @@ function tariffBack() {
     if (d > -1) for (let m = 2; m <= 9; m++) minor.push(k.lineOnTop([priceX((m * p) / 10), STRIP.y], [priceX((m * p) / 10), STRIP.y + 2.4], 0.6, P));
   }
   out.push(L(minor.join(""), { tone: "lo" }), L(major.join(""), { tone: "mid" }));
+  [["$1000", 3], ["$100", 2], ["$10", 1], ["$1", 0], ["$0.10", -1]].forEach(([name, d]) =>
+    out.push(k.faceTextSvg(k.topMatrix([priceX(10 ** d), STRIP.y + 9.6], 0.6, P, "x"), name, { size: 4.2, tone: "mid", anchor: "middle" })));
   out.push(D([at([STRIP.x + 2.4, STRIP.y + STRIP.d - 2.4, 0.6]), at([STRIP.x + STRIP.w - 2.4, STRIP.y + STRIP.d - 2.4, 0.6])], { size: 0.45 }));
   for (const y of RAILS) {
     out.push(S(k.slabOf({ x: RAIL_FROM, y, w: RAIL_TO - RAIL_FROM, d: 5, r: 1 }, 0, 3, P, 3, 0.4), { tone: "mid" }));
@@ -229,8 +239,14 @@ function knobBase() {
   const out = [];
   out.push(S(k.cylinder(KNOB[0], KNOB[1], BASE_R, 0, BASE_H, P, 56, 0.4), { tone: "mid" }));
   out.push(L(k.onTop(arcPoints(KNOB, BASE_R - 2, knobAngle(0), knobAngle(M.LAST), 48), BASE_H, P), { tone: "lo" }));
+  out.push(L(k.onTop(arcPoints(KNOB, BASE_R - 6.2, knobAngle(0), knobAngle(7), 40), BASE_H, P), { tone: "faint" }));
   const ticks = M.STOPS.map((_, i) => tick(KNOB, knobAngle(i), BASE_R - 2, BASE_R - (i === 0 || i === 7 ? 6.2 : 4.4), BASE_H));
   out.push(L(ticks.filter((_, i) => i !== 0 && i !== 7 && i !== M.LAST).join(""), { tone: "lo" }), L(ticks[0] + ticks[7], { tone: "mid" }), L(ticks[M.LAST], { tone: "hi" }));
+  [[0, "2019"], [7, "2026"], [M.LAST, "TEAM"]].forEach(([i, name]) => {
+    const a = knobAngle(i), [x, y] = polar(KNOB, a, BASE_R + 3);
+    const anchor = Math.sin(a) > 0.3 ? "start" : Math.sin(a) < -0.3 ? "end" : "middle";
+    out.push(k.faceTextSvg(k.topMatrix([x, y + 1.6], 0, P, "x"), name, { size: 4.2, tone: i === M.LAST ? "hi" : "mid", anchor }));
+  });
   out.push(S(k.cylinder(KNOB[0], KNOB[1], KNOB_R, BASE_H, KNOB_H, P, 40), { tone: "mid" }));
   out.push(L(k.knurl(KNOB[0], KNOB[1], KNOB_R, BASE_H + 0.6, BASE_H + KNOB_H - 0.6, 40, P), { tone: "lo" }));
   out.push(L(k.sideArc(KNOB[0], KNOB[1], KNOB_R, BASE_H + 0.6, P, 24) + k.sideArc(KNOB[0], KNOB[1], KNOB_R, BASE_H + KNOB_H - 0.6, P, 24), { tone: "faint" }));
@@ -258,7 +274,7 @@ const svg = k.figureSvg({
     meterBack(),
     meterFace(),
     meterSeal(),
-    `<path data-part="needle" class="iso-line" data-tone="lit" data-free="start" style="stroke-width:1.2" d="${needleAt(START.tokens)}"/>`,
+    `<path data-part="needle" class="iso-line" data-tone="lit" data-free="start" style="stroke-width:2" d="${needleAt(START.tokens)}"/>`,
     hub(),
     tariffBack(),
     `<g data-part="carriage" transform="${k.translateAlong(P, [priceX(START.price), 0, 0])}">${carriage()}</g>`,
@@ -298,20 +314,47 @@ const rotor = svg.querySelector('[data-part="rotor"]');
 const readout = document.querySelector("[data-readout]");
 const still = matchMedia("(prefers-reduced-motion: reduce)");
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+let custom = null;
 let u = LAST - 1, target = u, phase = 0, frame = 0, last = 0, clock = 0, touring = true, visible = false, idle = 0;
 const TOUR = [0, 1, 2, 3, 4, 5, 6, 7, 7, 8, 8];
 const tourAt = (t) => TOUR[Math.floor(t / 2.2) % TOUR.length];
+const board = {
+  year: document.querySelector('[data-board="year"]'),
+  tokens: document.querySelector('[data-board="tokens"]'),
+  price: document.querySelector('[data-board="price"]'),
+  bill: document.querySelector('[data-board="bill"]'),
+  reset: document.querySelector('[data-board="reset"]'),
+  note: document.querySelector('[data-board="note"]'),
+};
+const parseTokens = (text) => {
+  const t = String(text).trim().replace(/[,_\\s]/g, "").toUpperCase().replace(/TOKENS?$/, "");
+  const m = t.match(/^(\\d+(?:\\.\\d+)?(?:E[+]?\\d+)?)([KMBT])?$/);
+  if (!m) return null;
+  const v = parseFloat(m[1]) * ({ K: 1e3, M: 1e6, B: 1e9, T: 1e12 }[m[2]] || 1);
+  return v >= 1 && v < 1e16 ? v : null;
+};
+const dialTokens = (v) => Math.min(1e12, Math.max(1e5, v));
 function draw() {
   const m = model(u);
-  needle.setAttribute("d", needleAt(m.tokens));
+  const tokens = custom ?? m.tokens;
+  const bill = (tokens / 1e6) * m.price;
+  needle.setAttribute("d", needleAt(dialTokens(tokens)));
   carriage.setAttribute("transform", translateAlong(P, [priceX(m.price), 0, 0]));
   fin.innerHTML = solidSvg(extrude(finRing(knobAngle(u)), BASE_H + KNOB_H + CAP_H, 1.2, P), { tone: "hi", crease: "lo" });
   rotor.setAttribute("d", rotorAt(phase));
   const year = u > LAST - 0.5 ? "one team" : String(2019 + Math.round(Math.min(u, LAST - 1)));
-  const text = year + " · " + count(m.tokens) + " tokens × $" + m.price.toFixed(2) + "/M = " + money(m.bill) + "/mo";
+  const priceYear = u > LAST - 0.5 ? "team rate" : year;
+  const text = (custom ? "you · " : "") + year;
   if (readout.textContent !== text) readout.textContent = text;
+  board.year.textContent = year.toUpperCase();
+  if (document.activeElement !== board.tokens) board.tokens.value = count(tokens);
+  board.price.textContent = "$" + m.price.toFixed(2);
+  board.bill.textContent = money(bill);
+  board.note.textContent = custom
+    ? "Your " + count(tokens) + " tokens a month, priced at the " + priceYear + " frontier rate" + (tokens > 1e12 ? " (the dial stops at 1T)" : "") + ". Move across the meter to reprice it by year."
+    : "Type your own tokens a month into the box — e.g. 250B, 40M or 3e9.";
   stage.setAttribute("aria-valuenow", String(Math.round(u)));
-  stage.setAttribute("aria-valuetext", text);
+  stage.setAttribute("aria-valuetext", text + " · " + count(tokens) + " tokens × $" + m.price.toFixed(2) + "/M = " + money(bill) + "/mo");
 }
 function tick(now) {
   const dt = last ? Math.min((now - last) / 1000, 1 / 30) : 1 / 60;
@@ -327,7 +370,7 @@ function tick(now) {
   frame = visible ? requestAnimationFrame(tick) : 0;
 }
 const run = () => { if (!frame && visible) { last = 0; frame = requestAnimationFrame(tick); } };
-const steer = (next) => { touring = false; target = clamp(next, 0, LAST); clearTimeout(idle); idle = setTimeout(() => { touring = !still.matches; clock = 0; run(); }, 4200); run(); };
+const steer = (next) => { touring = false; target = clamp(next, 0, LAST); clearTimeout(idle); idle = setTimeout(() => { touring = !still.matches && custom === null; clock = 0; run(); }, 4200); run(); };
 new IntersectionObserver((entries) => { visible = entries[entries.length - 1].isIntersecting; if (visible) run(); }, { rootMargin: "120px 0px" }).observe(stage);
 if (still.matches) touring = false;
 stage.addEventListener("pointermove", (event) => {
@@ -345,6 +388,18 @@ stage.addEventListener("keydown", (event) => {
   event.preventDefault();
   steer(to);
 });
+const apply = () => {
+  const v = parseTokens(board.tokens.value);
+  board.tokens.setAttribute("aria-invalid", v === null && board.tokens.value.trim() !== "" ? "true" : "false");
+  if (v === null) return;
+  custom = v; touring = false; clearTimeout(idle); board.reset.hidden = false; run(); draw();
+};
+board.tokens.addEventListener("input", apply);
+board.tokens.addEventListener("change", apply);
+board.tokens.addEventListener("keydown", (e) => { if (e.key === "Enter") { apply(); board.tokens.blur(); } });
+board.tokens.addEventListener("focus", () => board.tokens.select());
+board.tokens.addEventListener("blur", () => draw());
+board.reset.addEventListener("click", () => { custom = null; board.reset.hidden = true; touring = !still.matches; clock = 0; run(); draw(); });
 draw();
 `;
 
@@ -352,7 +407,7 @@ const body = k.plateHtml({
   fig: "Fig 2",
   title: "The token meter",
   hint: "Move across to turn the calendar",
-  readout: `2026 · ${M.count(START.tokens)} tokens × $${START.price.toFixed(2)}/M = ${M.money(START.bill)}/mo`,
+  readout: "2026",
   keys: [
     { mark: "lit", label: "Needle: tokens a month, one major tick per ×10" },
     { mark: "raised", label: "Tariff carriage: the frontier price per million tokens, same length per ×10" },
@@ -363,7 +418,18 @@ const body = k.plateHtml({
   body: `<div class="iso-stage" tabindex="0" role="slider" aria-label="Token meter: arrow keys move the calendar from 2019 to 2026 and one team's month" aria-valuemin="0" aria-valuemax="${M.LAST}" aria-valuenow="${M.LAST - 1}">${svg}</div>`,
 });
 
-const page = k.pageHtml({ title: "The token meter", theme: "light", body, script: kitScript() + live, width: 720 }).replace("</style>", `${PAPER_CSS}</style>`);
+const BOARD = `<div class="board" aria-live="polite">
+  <div class="cell"><span class="lab">Year</span><span class="num" data-board="year">2026</span></div>
+  <label class="cell"><span class="lab">Your tokens / month</span><input class="num" data-board="tokens" inputmode="text" autocomplete="off" spellcheck="false" value="${M.count(START.tokens)}" aria-label="Tokens a month: type a number such as 250B, 40M or 3e9"></label>
+  <span class="op" aria-hidden="true">×</span>
+  <div class="cell"><span class="lab">Frontier $ / M tokens</span><span class="num" data-board="price">$${START.price.toFixed(2)}</span></div>
+  <span class="op" aria-hidden="true">=</span>
+  <div class="cell bill"><span class="lab">Bill / month</span><span class="num" data-board="bill">${M.money(START.bill)}</span></div>
+  <div class="note"><span data-board="note">Type your own tokens a month into the box — e.g. 250B, 40M or 3e9.</span><button type="button" data-board="reset" hidden>Back to the timeline</button></div>
+</div>`;
+const figure = body.replace("</div><figcaption", `</div>${BOARD}<figcaption`);
+if (figure === body) throw new Error("board not placed");
+const page = k.pageHtml({ title: "The token meter", theme: "light", body: figure, script: kitScript() + live, width: 1120 }).replace("</style>", `${PAPER_CSS}${STAGE_CSS}</style>`);
 writeFileSync(join(HERE, "token-meter.html"), page);
-writeFileSync(join(HERE, "token-meter.fragment.html"), body);
+writeFileSync(join(HERE, "token-meter.fragment.html"), figure);
 console.log("wrote token-meter.html", (page.length / 1024).toFixed(0) + " KB");

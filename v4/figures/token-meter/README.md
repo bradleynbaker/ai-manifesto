@@ -6,4 +6,6 @@ A utility meter on a calibration bench. The needle reads tokens a month on a log
 - **Result:** volume ×1,000,000, price ÷16, bill ×64,000. The meter, not the rate card.
 - **Build:** `node build.mjs` → `token-meter.html` (standalone, paper theme) and `token-meter.fragment.html` (for the deck).
 - **Checks:** line-end check 0 floating ends (Anatomy `scripts/lines.mjs`); desktop, phone (390 px), reduced-motion and 4× dial close-up captured.
+- **Stage type:** `_anatomy/stage.mjs` (shared by every v4 figure): 1120 px plate, 20–22 px corners, printed dial / ruler / calendar numerals, and a scoreboard under the plate — YEAR · TOKENS/MONTH × FRONTIER $/M = BILL/MONTH at up to 46 px.
+- **Type your own tokens:** the tokens box takes 250B, 40M, 1.2T, 3e9 or 250,000,000. The needle jumps to your number; move across the meter to price it at any year's rate; "Back to the timeline" resumes the tour.
 - Size: Figure, ~55 parts, no shader.
