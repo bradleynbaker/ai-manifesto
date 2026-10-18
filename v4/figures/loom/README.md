@@ -1,0 +1,17 @@
+# F4 · Could vs. does (the loom)
+
+A rigid-heddle table loom on a bench. There are 100 warp positions across the loom, one for each percentage point of the tasks in computer & math occupations. 94 of them are strung with warp thread: what models *could* do. The red woven cloth, the figure's single accent, spans only the first 33: what is actually *done*. The other 61 strung threads run bare under a clamp bar. The bar is held by a coin-slot lock box and a padlock, which stand for the permission, plumbing and meter limits. A shuttle carries the red weft back and forth across the woven part only. Under the warp, a scale is printed on the bench: 0 · 33 · 94 · 100.
+
+- **Truth:** `model.mjs`. The source is Anthropic, "Labor market impacts of AI," Massenkoff & McCrory, 5 March 2026. For computer & math, LLMs could theoretically perform 94% of tasks, and observed coverage is 33% (both values are stated in the paper's text). The gap is 61 points. The board note also gives office & admin (could 90%) and the 30% of workers with zero observed coverage. No other numbers are used. The loom, clamp and lock are illustrative, and the caption says so.
+- **States** (`window.figureApi.states`):
+  1. `could`: all 94 strung threads are darkened, a dotted outline marks where cloth could be, and the printed bracket reads "94 — COULD". No cloth is shown.
+  2. `does`: the cloth weaves forward from the breast beam to the fell, 33 positions wide, and the shuttle runs across it. The bracket reads "33 — DOES".
+  3. `gap`: the cloth stays, the 61 bare threads are darkened, and the bracket under 33–94 reads "61 — PERMISSION · PLUMBING · METER".
+- **Key state:** `gap` (index 2). `loom.svg` is the gap state. `loom-1.svg`, `loom-2.svg` and `loom-3.svg` are could, does and gap, each built statically so it shows that state without JS.
+- **Readout:** "Computer & math · could 94%" / "· does 33%" / "· could 94% · does 33%".
+- **Board:** COULD 94% − DOES 33% (red, matching the cloth) = LEFT ON THE TABLE 61 pts. The cells that don't belong to the current state are dimmed.
+- **Build:** `node build.mjs` writes `loom.html` (standalone, paper theme), `loom.fragment.html`, `loom.svg` and `loom-1..3.svg`. `loom.png` is the 1200 px desktop preview of the key state.
+- **Live:** an idle tour pauses about 2.6 s per state, holding gap twice as long. Pointer position across the figure picks a state, and arrow, Home and End keys step through them. The tour stops when the figure is offscreen. Reduced motion shows a still frame with no shuttle motion. `?embed=1&state=N&still=1&board=0` and `postMessage({anatomy:"set",state:N})` work via the shared `EMBED_JS`.
+- **Checks:** `lines.mjs` reported 0 floating ends on three runs in a row of the touring page, and 0 in each held state (could, does, gap). Captures checked: desktop at 1200 px, phone at 390 px (no horizontal scroll), embed at 1280×720, reduced motion, 3–4× close-ups of the lock box and padlock, the cloth, drape and roll, and the ruler and bracket, and the static SVGs. The console is clean.
+- **Notes:** the smallest face text is 3.9 units at scale 1.44, which matches 3.6 or more at the token meter's 1.48. The ruler numerals are 5.4 and the bracket text is 4.8. No label lies under the shuttle's path. The page adds a small `LOOM_CSS` (board layout, dimming, phone readout wrap) in this folder only, and `_anatomy/` is untouched.
+- Size: Figure, about 55 parts, no shader.

@@ -15,3 +15,9 @@ Revision history as recorded in Appendix B of the page, oldest first.
 - **R4.3 — the publication cut.** Retitled "An AI Manifesto." Every reveal is now scroll-linked — figures draw as they travel up the screen and un-draw on the way back, rather than firing on arrival. Figure 9 rebuilt as direct-labelled horizontal bars; Figure 11 rebuilt as a single scrubbed line. The seller close moved to an internal companion. Named agencies and vendors removed from the narrative (kept only as sources in the appendix); the unverified budget-overrun row dropped. Decryptor no longer leaves scrambled headings. Phone (pan-able charts) and print (light leave-behind with every state final and both futures shown) layouts added.
 - **R4.3.1 — the close.** "What this means for you" collapsed to three sentences, one per role, with the recipe moved to a Monday checklist in Appendix C (Figure 14). Figure 4B rebuilt as paired bars with the ratio stated on every row. Console errors fixed: hash routing no longer throws inside an embedded frame; a stray tab-panel reference removed. Public quotes from named frontier-lab executives restored where they carry the point.
 - **V4.0.0 — the talk** (in progress, October 2026). See `v4/BRIEF.md`.
+
+## V5.0.0-draft — 18 Oct 2026 · the talk
+
+- 30-minute HTML deck (`v5/`), 25 slides, built from `slides.mjs`: action titles, speaker notes, presenter view, ghost-deck overview, live audience vote at the fork.
+- Ten new Anatomy figures in `v4/figures/`: the leak loop, the spend steelyard, could-vs-does loom, two doors, the spike press, one token four prices, the sovereign ladder, the Tuesday RFP, one in a thousand, the chain of command. Each has a deck embed mode and per-state static SVGs.
+

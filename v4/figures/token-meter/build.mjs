@@ -9,6 +9,7 @@ import * as k from "../_anatomy/kit/iso-kit.mjs";
 import { kitScript } from "../_anatomy/inline-kit.mjs";
 import { PAPER_CSS } from "../_anatomy/paper.mjs";
 import { STAGE_CSS } from "../_anatomy/stage.mjs";
+import { EMBED_CSS, EMBED_JS, writeSnapshot } from "../_anatomy/embed.mjs";
 import * as M from "./model.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -314,7 +315,7 @@ const rotor = svg.querySelector('[data-part="rotor"]');
 const readout = document.querySelector("[data-readout]");
 const still = matchMedia("(prefers-reduced-motion: reduce)");
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
-let custom = null;
+let custom = null, held = false;
 let u = LAST - 1, target = u, phase = 0, frame = 0, last = 0, clock = 0, touring = true, visible = false, idle = 0;
 const TOUR = [0, 1, 2, 3, 4, 5, 6, 7, 7, 8, 8];
 const tourAt = (t) => TOUR[Math.floor(t / 2.2) % TOUR.length];
@@ -362,7 +363,7 @@ function tick(now) {
   const calm = still.matches;
   if (touring) { clock += dt; target = tourAt(clock); }
   u = calm ? target : u + (target - u) * (1 - Math.exp(-dt / 0.45));
-  if (Math.abs(target - u) < 0.0005) u = target;
+  if (Math.abs(target - u) < 0.004) u = target;
   // the rotor turns in proportion to the decade the meter is in: a log meter's disc speed
   const m = model(u);
   if (!calm) phase += dt * (Math.log10(m.tokens) - 4) * 2.4;
@@ -370,7 +371,7 @@ function tick(now) {
   frame = visible ? requestAnimationFrame(tick) : 0;
 }
 const run = () => { if (!frame && visible) { last = 0; frame = requestAnimationFrame(tick); } };
-const steer = (next) => { touring = false; target = clamp(next, 0, LAST); clearTimeout(idle); idle = setTimeout(() => { touring = !still.matches && custom === null; clock = 0; run(); }, 4200); run(); };
+const steer = (next) => { touring = false; target = clamp(next, 0, LAST); clearTimeout(idle); idle = setTimeout(() => { touring = !still.matches && custom === null && !held; clock = 0; run(); }, 4200); run(); };
 new IntersectionObserver((entries) => { visible = entries[entries.length - 1].isIntersecting; if (visible) run(); }, { rootMargin: "120px 0px" }).observe(stage);
 if (still.matches) touring = false;
 stage.addEventListener("pointermove", (event) => {
@@ -401,6 +402,11 @@ board.tokens.addEventListener("focus", () => board.tokens.select());
 board.tokens.addEventListener("blur", () => draw());
 board.reset.addEventListener("click", () => { custom = null; board.reset.hidden = true; touring = !still.matches; clock = 0; run(); draw(); });
 draw();
+window.figureApi = {
+  states: STOPS.map((s) => (s === "team" ? "one team" : String(s))),
+  set(i) { held = true; touring = false; clearTimeout(idle); target = clamp(i, 0, LAST); run(); },
+  hold() { held = true; touring = false; clearTimeout(idle); },
+};
 `;
 
 const body = k.plateHtml({
@@ -429,7 +435,8 @@ const BOARD = `<div class="board" aria-live="polite">
 </div>`;
 const figure = body.replace("</div><figcaption", `</div>${BOARD}<figcaption`);
 if (figure === body) throw new Error("board not placed");
-const page = k.pageHtml({ title: "The token meter", theme: "light", body: figure, script: kitScript() + live, width: 1120 }).replace("</style>", `${PAPER_CSS}${STAGE_CSS}</style>`);
+const page = k.pageHtml({ title: "The token meter", theme: "light", body: figure, script: kitScript() + live + EMBED_JS, width: 1120 }).replace("</style>", `${PAPER_CSS}${STAGE_CSS}${EMBED_CSS}</style>`);
+writeSnapshot(HERE, "token-meter", svg);
 writeFileSync(join(HERE, "token-meter.html"), page);
 writeFileSync(join(HERE, "token-meter.fragment.html"), figure);
 console.log("wrote token-meter.html", (page.length / 1024).toFixed(0) + " KB");
