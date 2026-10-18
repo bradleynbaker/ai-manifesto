@@ -1,0 +1,651 @@
+{
+  "talk": {
+    "title": "An AI Manifesto",
+    "thesis": "Intent is the new oil. Capping tokens is the leak.",
+    "speaker": "Brad Baker",
+    "edition": "V5.1C · commercial",
+    "version": "5.1C",
+    "minutes": 30
+  },
+  "slides": [
+    {
+      "id": "cover",
+      "type": "cover",
+      "section": "",
+      "min": 0.5,
+      "title": "Intent is the new oil. Capping tokens is the leak.",
+      "kicker": "For the one in a thousand",
+      "meta": [
+        "Brad Baker",
+        "30 minutes",
+        "one vote"
+      ],
+      "art": "loop",
+      "notes": "This talk is for you — the one in a thousand. The people who build with AI, not the ones who were issued a seat. You see something your leadership doesn't. My job in the next thirty minutes is to hand you the facts and the exact sentences to carry upstairs, so you come back with capacity instead of a cap. At the end, you vote.",
+      "n": 1
+    },
+    {
+      "id": "q1",
+      "type": "quote",
+      "section": "The problem",
+      "min": 1,
+      "title": "“My company spent my entire 2026 budget in Q1. Can you make this more efficient?”",
+      "cite": "A client complaint Sam Altman quoted on stage, June 2026. He called token costs “a huge issue” that “never came up” six months earlier.",
+      "notes": "This isn't me. This is the vendor's own CEO, on stage in June, quoting a customer. Six months earlier nobody asked this question. Now it's the question. And look around: the reason that budget went in Q1 is in this room. It's you. Hands up if you've been asked to \"be more efficient\" with tokens this year. [pause] Keep it up if the answer upstairs was a cap. That's who I'm talking to. Altman's answer is efficiency. Mine is ownership.",
+      "n": 2
+    },
+    {
+      "id": "you",
+      "type": "fig",
+      "layout": "side",
+      "section": "You",
+      "min": 1,
+      "title": "You're the one in a thousand. That's why the people who sign can't see what you see.",
+      "fig": {
+        "slot": "natives",
+        "steps": [
+          1,
+          2
+        ],
+        "board": false
+      },
+      "stats": [
+        {
+          "n": "1 in 1,000",
+          "l": "people actually building their own agents on a harness: you",
+          "accent": true
+        },
+        {
+          "n": "> 998",
+          "l": "you burn more tokens than everyone else in the building combined"
+        },
+        {
+          "n": "3 months",
+          "l": "until the people next to you are doing it too, on the same meter"
+        }
+      ],
+      "source": "1-in-1,000: Brad's field observation of people building their own agents. Spread illustrative.",
+      "notes": "Here's the floor of your company. A thousand people. Two of them are building agents on a harness and burning more tokens than the other nine hundred and ninety-eight combined. That's you. Surveys will tell your leadership that forty percent of large organizations are \"scaling agents\" — that counts deployments, not builders. The builders are one in a thousand. [advance] And three months later, the people sitting next to you have caught it. Demo by demo, team by team. Every red stack is on the meter. That's the curve your CFO is about to see, and they'll reach for the only tool they have: a cap. This talk is how you get there first.",
+      "n": 3
+    },
+    {
+      "id": "ask",
+      "type": "ask",
+      "section": "The answer first",
+      "min": 1,
+      "title": "Your ask upstairs: owned capacity for the people who burn the most, not more seats.",
+      "cols": [
+        {
+          "k": "The meter",
+          "v": "Demand outruns price. The bill detonates in the quarters you're winning."
+        },
+        {
+          "k": "The leak",
+          "v": "Cap you, and you route around them — through a door the contract doesn't cover."
+        },
+        {
+          "k": "The ladder",
+          "v": "Three rungs you own, one gate you rent. Volume uncapped; judgment escalates."
+        }
+      ],
+      "lead": {
+        "k": "Your kit",
+        "v": "Three sentences, two numbers, one ask. You leave with all of them."
+      },
+      "notes": "Answer first, so you can check my working. The ask you carry upstairs: fund owned capacity for the people who burn the most — you — instead of buying more seats and capping them. Three things get you there. The meter: demand is outrunning price, and that's a finance problem. The leak: when they cap you, the work doesn't stop; it goes somewhere they can't see. The ladder: the architecture that fixes both. Then I'll give you the three sentences for your CFO, CIO and CEO, and the two numbers that turn a talk into a purchase order.",
+      "n": 4
+    },
+    {
+      "id": "meter",
+      "type": "fig",
+      "layout": "side",
+      "section": "1 · The meter",
+      "min": 1.5,
+      "title": "Token demand rose a millionfold; the price fell sixteenfold. The bill is the problem.",
+      "fig": {
+        "slot": "token-meter",
+        "steps": [
+          0,
+          7
+        ],
+        "board": "under"
+      },
+      "stats": [
+        {
+          "n": "×1,000,000",
+          "l": "top customer's tokens a month, 2019 → 2026 (100K → 100B)"
+        },
+        {
+          "n": "÷16",
+          "l": "frontier list price per million tokens ($60 → $3.85)"
+        },
+        {
+          "n": "×64,000",
+          "l": "the monthly bill",
+          "accent": true
+        }
+      ],
+      "source": "Altman on stage, June 2026 (volume); 2020 API launch pricing and Artificial Analysis (price); log-interpolated.",
+      "notes": "This is the first thing you show upstairs. The needle is tokens a month on a log dial, one big tick for every ten times. 2019 to 2026. [advance] A millionfold. The tariff carriage — price per million — barely moves: sixty dollars to three eighty-five. Everyone tells leadership tokens are getting cheaper, and yesterday's capability is. But the price of the best model stays in the same band, and usage grows faster than prices fall. The bill went up sixty-four thousand times. Type your own monthly burn into the box before your meeting. That number is your opening line.",
+      "n": 5
+    },
+    {
+      "id": "team",
+      "type": "big",
+      "section": "1 · The meter",
+      "min": 1,
+      "title": "One three-person team burned 603 billion tokens in a month.",
+      "big": "$1.3M",
+      "under": "one month · ~100 coding agents · 7.6M requests",
+      "aside": "That's what you look like at full speed. Make them budget for it, instead of discovering it.",
+      "source": "OpenClaw creator Peter Steinberger's published monthly bill (Tom's Hardware).",
+      "notes": "Here's the other end of the meter. Three people, about a hundred coding agents, six hundred and three billion tokens, one point three million dollars, one month. Upstairs, that's a horror story. In here, it's a picture of you without the cap. Your job is to make sure leadership sees this number in a plan you wrote, not on an invoice they didn't expect.",
+      "n": 6
+    },
+    {
+      "id": "flatdies",
+      "type": "flow",
+      "section": "1 · The meter",
+      "min": 1,
+      "title": "Every flat plan dies the same way: hooked first, metered second.",
+      "steps": [
+        "Flat plan",
+        "5-hour session caps",
+        "Weekly caps",
+        "Pay-as-you-go overflow"
+      ],
+      "example": {
+        "n": "0 → 19,000",
+        "l": "users in 45 days at one large agency — then rationing, because small jobs by hundreds of thousands of people “get expensive real, real fast.”"
+      },
+      "source": "Usage-limit changes, 2026; AI Weekly, Aug 2026 (the agency rollout).",
+      "notes": "You've lived this as a consumer. The flat plan gets you hooked. Then the five-hour session cap. Then the weekly cap. Then pay-as-you-go overflow. The enterprise version is the same arc with a bigger number: one large agency went from zero to nineteen thousand users in forty-five days and then rationed them. That's the budget detonation. Last year AI was a subscription anyone could forecast. This year it's a meter wired to how hard you work, and it goes off in exactly the quarters you're winning. A CFO can live with a big number. A CFO cannot live with a number that detonates.",
+      "n": 7
+    },
+    {
+      "id": "spend",
+      "type": "fig",
+      "layout": "side",
+      "section": "1 · The meter",
+      "min": 1.5,
+      "title": "The median business spends $137 a person a year on AI. The best spend half a salary.",
+      "fig": {
+        "slot": "scale",
+        "steps": [
+          0,
+          2,
+          3
+        ],
+        "board": false
+      },
+      "stats": [
+        {
+          "n": "$137",
+          "l": "median business, per employee a year",
+          "accent": true
+        },
+        {
+          "n": "$89K",
+          "l": "top 1% of businesses, growing ~14% a month"
+        },
+        {
+          "n": "$250K",
+          "l": "Jensen Huang's bar for a $500K engineer — half the salary"
+        }
+      ],
+      "source": "Ramp AI Index, June 2026 (70,000+ US businesses, annualized); Huang on the record (Tom's Hardware).",
+      "notes": "So what's a sane number? The industry finally has benchmarks, and the spread is the story. The median business spends a hundred and thirty-seven dollars per person a year. [advance] The top one percent: eighty-nine thousand, growing fourteen percent a month. [advance] Jensen Huang, on the record: a five-hundred-thousand-dollar engineer who doesn't burn two hundred and fifty thousand in tokens has him \"deeply alarmed.\" Half the salary. When you go upstairs, don't defend a big number. Show them where the best sit on this beam and where your company is.",
+      "n": 8
+    },
+    {
+      "id": "could",
+      "type": "fig",
+      "layout": "wide",
+      "section": "1 · The meter",
+      "min": 1.5,
+      "title": "Models could do 94% of the tasks in computing jobs. We let them do a third.",
+      "fig": {
+        "slot": "loom",
+        "steps": [
+          0,
+          1,
+          2
+        ],
+        "board": true
+      },
+      "source": "Massenkoff & McCrory, “Labor market impacts of AI,” Anthropic, 5 March 2026.",
+      "notes": "Spend is one way to see the gap. Work is the other. In March, Anthropic published two numbers per occupation: what share of tasks a model could do, and what share it's observed doing at work. Computer and math jobs: could, ninety-four percent. [advance] Does: thirty-three. [advance] The sixty-one points in between aren't a capability problem. Look at what holds the warp: a clamp, a coin box, a padlock. Permission, plumbing and the meter. You know exactly which of those three is stopping you. Name it upstairs. It's the most fundable sentence you have.",
+      "n": 9
+    },
+    {
+      "id": "doors",
+      "type": "fig",
+      "layout": "side",
+      "section": "2 · The leak",
+      "min": 1.5,
+      "title": "When they cap you, the side door is right there, and the contract doesn't cover it.",
+      "fig": {
+        "slot": "doors",
+        "steps": [
+          0,
+          1,
+          2
+        ],
+        "board": false
+      },
+      "stats": [
+        {
+          "n": "66%",
+          "l": "of office workers used AI tools they believed weren't allowed",
+          "accent": true
+        },
+        {
+          "n": "88%",
+          "l": "shared work information through them"
+        },
+        {
+          "n": "81%",
+          "l": "believe leadership plays by different rules"
+        }
+      ],
+      "source": "PagerDuty, June 2026 (n = 1,250 office professionals, companies ≥ $500M).",
+      "notes": "Be honest with yourselves for a second. The front door is the enterprise contract — metered, not trained on. [advance] They cap it. The bar drops. Your work doesn't stop. It backs up. [advance] And then it goes out the side door, on a personal account. Sixty-six percent of office workers have used AI tools they believed weren't allowed. Eighty-eight percent have shared work information through them. Some of you have done it this month. I'm not here to scold you — I'm here to point out that every time a cap pushes you out that door, your company's intent goes with you. That's the argument you take upstairs: the cap doesn't save money, it moves the work somewhere nobody can see.",
+      "n": 10
+    },
+    {
+      "id": "contract",
+      "type": "compare",
+      "section": "2 · The leak",
+      "min": 1,
+      "title": "The contract protects the front door. The training toggle lives at the side door.",
+      "head": [
+        "",
+        "Enterprise · API · government",
+        "Consumer plans"
+      ],
+      "rows": [
+        [
+          "Who's on it",
+          "The seats you provisioned",
+          "Two-thirds of the workforce, quietly"
+        ],
+        [
+          "Training",
+          "Excluded by commercial terms",
+          "A toggle in the user's settings"
+        ],
+        [
+          "Retention",
+          "Zero-retention agreements exist",
+          "Five years, if the toggle is on"
+        ],
+        [
+          "Who sees it",
+          "Your contract, your logs",
+          "Nobody at your company"
+        ]
+      ],
+      "line": "What leaks isn't customer data. It's how you work: which tools, which decisions, which features you're building next.",
+      "source": "Anthropic consumer terms (Aug 2025) and commercial terms; equivalent terms at every major lab.",
+      "notes": "Read the terms and you'll see what they protect: the traffic that goes through the front door. Enterprise, API and commercial traffic is excluded from training at every major lab. The consumer plans are where the training toggle lives, with five-year retention if it's on. And what flows out isn't the database. It's how you work: which tools, which decisions, which features you're building next. The early leak is a leader thinking something through before a dollar is committed. The expensive leak is later: the features and fixes you ship through someone else's model.",
+      "n": 11
+    },
+    {
+      "id": "spikes",
+      "type": "fig",
+      "layout": "wide",
+      "section": "2 · The leak",
+      "min": 1.5,
+      "title": "The labs ship where the usage map is dense: images, code, security, finance, legal.",
+      "fig": {
+        "slot": "spikes",
+        "steps": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "board": false
+      },
+      "source": "Public product launches, in order; Anthropic Economic Index (30+ categories); Artificial Analysis Intelligence Index v4.3.2, Oct 2026 (46 vs 58). Heights illustrative; the causal reading is Brad's.",
+      "notes": "The labs say this part out loud. Anthropic publishes an Economic Index built by classifying millions of conversations into more than thirty categories of work. That's this table. [advance] Image generation. [advance] Software. [advance] Security. [advance] Finance. [advance] Legal. Each one a capability spike dropped where the map was dense. Nobody's alleging a lab lifted a feature from a customer — it's aggregate, by their own published method. The two glass planes are today's scores: the best open-weight model at 46, runnable on your own iron, uncapped, and the frontier at 58, metered. Most of the map sits under the open plane. [advance] And the dashed cell is the question for your leadership: is ours next?",
+      "n": 12
+    },
+    {
+      "id": "loop",
+      "type": "fig",
+      "layout": "wide",
+      "section": "2 · The leak",
+      "min": 1.5,
+      "title": "Capping tokens starts an eight-step loop. Owned capacity breaks it at step three.",
+      "fig": {
+        "slot": "loop",
+        "steps": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "board": true
+      },
+      "source": "PagerDuty, June 2026; AI Weekly, Aug 2026; Anthropic consumer terms, Aug 2025; Anthropic Economic Index.",
+      "notes": "Put it together and you get a loop, and every step is already happening somewhere. One: usage explodes — that's you. [advance] Two: the meter arrives. [advance] Three: they cap you. [advance] Four: you go personal. [advance] Five: personal accounts train. [advance] Six: intent becomes their roadmap. [advance] Seven: the spike eats the eighty percent. [advance] Eight is the only step your leadership controls. They can't set the labs' prices or what a consumer account trains on. They control whether they cap you. Owned, uncapped capacity throws the switch at step three, and four through seven never happen. That's your whole pitch on one machine.",
+      "n": 13
+    },
+    {
+      "id": "openvs",
+      "type": "models",
+      "section": "3 · The ladder",
+      "min": 1.5,
+      "title": "The best open model now beats last spring's frontier, at a twentieth of the price.",
+      "models": [
+        {
+          "name": "Claude Opus 5.5",
+          "short": "Opus 5.5",
+          "index": 58,
+          "price": 2.94,
+          "tps": 97.5,
+          "tag": "frontier · metered"
+        },
+        {
+          "name": "MiMo-V2.6-Pro (Xiaomi)",
+          "short": "MiMo-V2.6-Pro",
+          "index": 46,
+          "price": 0.18,
+          "tps": 48,
+          "tag": "best open weights · MIT licence",
+          "hot": true
+        },
+        {
+          "name": "Claude Opus 4.8",
+          "short": "Opus 4.8",
+          "index": 42,
+          "price": 3.85,
+          "tps": 64.9,
+          "tag": "the frontier in May"
+        },
+        {
+          "name": "Muse Spark Open (Meta)",
+          "short": "Muse Spark Open",
+          "index": 39,
+          "price": 0.78,
+          "tps": 130.7,
+          "tag": "best US open weights · Muse licence"
+        }
+      ],
+      "line": "Run open weights uncapped on capacity you own. Escalate to the 58 for judgment only.",
+      "source": "Artificial Analysis Intelligence Index v4.3.2 and model pages, read 18 Oct 2026. Blended $/M at 7:2:1 cache-hit:input:output; output speed on the first-party API.",
+      "notes": "Here's today's market, on Artificial Analysis's own index, read this weekend. The frontier, Opus 5.5: fifty-eight, about three dollars per million tokens. The best open-weight model in the world, Xiaomi's MiMo: forty-six, for eighteen cents. Opus 4.8 — the frontier in May — forty-two, at three eighty-five. So the open model you can download today beats the frontier of five months ago at a twentieth of the price. If provenance matters to you, the best American open model, Meta's Muse Spark Open, is thirty-nine at seventy-eight cents and a hundred and thirty tokens a second. Either way the pattern holds: run the routine on open weights you own, uncapped, and escalate to the fifty-eight when the problem earns it.",
+      "n": 14
+    },
+    {
+      "id": "ladder",
+      "type": "fig",
+      "layout": "side",
+      "section": "3 · The ladder",
+      "min": 1.5,
+      "title": "Three rungs you own, one gate you rent: routine stays inside, judgment escalates.",
+      "fig": {
+        "slot": "ladder",
+        "steps": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "board": false
+      },
+      "stats": [
+        {
+          "n": "46",
+          "l": "open weights on the rungs you own: $0.18 per million tokens, uncapped"
+        },
+        {
+          "n": "58",
+          "l": "the frontier, through one gate: $2.94 per million, metered",
+          "accent": true
+        },
+        {
+          "n": "1 gate",
+          "l": "sensitive context stripped on the way out"
+        }
+      ],
+      "source": "Artificial Analysis Intelligence Index v4.3.2, Oct 2026. Token mix illustrative.",
+      "notes": "This is what you're asking for. Three rungs inside the fence. [advance] Device: your machine, refreshed now — NPU laptops and workstations. [advance] Workgroup: a desktop inference box your team shares. [advance] Core: the racks, built later, out of the growth you create. [advance] And one gate, the only way out. Escalation to the frontier is earned and metered, and sensitive context is stripped on the way through. [advance] Two rules at once: volume is uncapped on the rungs, because the capacity is yours; escalation is earned, because that's where the meter and the leak live. You stop picking models. The router does it.",
+      "n": 15
+    },
+    {
+      "id": "rfp",
+      "type": "fig",
+      "layout": "wide",
+      "section": "3 · The ladder",
+      "min": 1.5,
+      "title": "On a Tuesday, four pieces of an RFP stay inside. Two leave without the bid.",
+      "fig": {
+        "slot": "rfp",
+        "steps": [
+          0,
+          1,
+          2
+        ],
+        "board": true
+      },
+      "source": "Illustrative workflow from the manifesto.",
+      "notes": "Make it concrete for them with a Tuesday. Someone drops in an RFP — pricing, technical, capabilities, logistics — and asks what to do first. [advance] The router splits it. Four pieces land on your own rungs and get answered inside. The two hard questions need the outside world. [advance] Watch the gate: the number, the deadline, the bid — stripped, logged, policy-checked. [advance] The world sees a capability search. A human makes the call. That's the demo you build next week to show your leadership the ladder isn't a slide.",
+      "n": 16
+    },
+    {
+      "id": "vend",
+      "type": "fig",
+      "layout": "wide",
+      "section": "3 · The ladder",
+      "min": 1.5,
+      "title": "Past 5.3 hours a day, owning the box beats renting it. You already work twelve.",
+      "fig": {
+        "slot": "vending",
+        "steps": [
+          1,
+          2,
+          3
+        ],
+        "board": true
+      },
+      "source": "Lenovo 2026 TCO (vendor study): 5-year life, zero residual, 12% maintenance, $0.12/kWh; ~5.2-month break-even. Frontier and wrapped rates are Brad's reads.",
+      "notes": "Now the money. Same item — a million tokens of the same open model — four ways to buy it. Cloud GPU: ninety-seven cents. Frontier API at a blended coding rate: about twelve dollars. A wrapped enterprise LLM: up to forty-five. And owned capacity, whose price depends on one thing. [advance] At three hours a day, a dollar seventy-one. [advance] At five point three hours a day it matches cloud; about a five-month break-even. [advance] At twelve hours — your day — forty-three cents. The gap is utilization. Which is the point: you're not asking them to buy boxes for everyone. You're asking them to buy boxes for the people who keep them busy.",
+      "n": 17
+    },
+    {
+      "id": "tubes",
+      "type": "fig",
+      "layout": "wide",
+      "section": "4 · Selling up the chain",
+      "min": 1.5,
+      "title": "Your job upstairs: send each office the one sentence it can sign.",
+      "fig": {
+        "slot": "tubes",
+        "steps": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "board": false
+      },
+      "source": "The manifesto's three drivers — pricing, security, operations — translated per office.",
+      "notes": "Here's the part you came for. Your leadership doesn't need this talk. Each office needs one sentence it can sign. [advance] The CFO: a cap costs more than capacity. Their problem isn't the size of the number; it's the detonation. Owned capacity is the predictable number. [advance] The CIO: IT rules for models. A curated model repository, a shim on every device, retrieval that follows the access controls you already have. [advance] The CEO: our decision graph is either our asset or their training data. [advance] Three tubes, three sentences. Don't send the CFO the CEO's sentence.",
+      "n": 18
+    },
+    {
+      "id": "numbers",
+      "type": "ba",
+      "section": "4 · Selling up the chain",
+      "min": 1,
+      "title": "Bring two numbers upstairs: your token-burn map and your hours a day.",
+      "before": {
+        "k": "Before",
+        "v": "AI is a line item: seats, a subscription, a cap when it runs hot."
+      },
+      "lever": [
+        {
+          "k": "Your token-burn map",
+          "v": "Every system with an AI feature, who pays for its tokens, which model it calls, what breaks when that model is down."
+        },
+        {
+          "k": "Your hours a day",
+          "v": "How long you keep a box busy. Above 5.3, capacity is cheaper than rent."
+        }
+      ],
+      "after": {
+        "k": "After",
+        "v": "AI is capacity: a purchase with a payback date, sized to the people who burn the most."
+      },
+      "notes": "Sentences get you the meeting. Numbers get you the purchase order. Bring two. First, the token-burn map: every system in the company with an AI feature, who pays for its tokens, which model it calls, and what happens when that model is down. Your CIO can't answer the last column today. You can. That's your opening. Second, your hours a day: how long you and the people like you keep a box busy. That number turns the vending machine into a payback date. Before, AI is a line item that gets capped. After, it's capacity with a break-even.",
+      "n": 19
+    },
+    {
+      "id": "sequence",
+      "type": "steps",
+      "section": "4 · Selling up the chain",
+      "min": 1,
+      "title": "Ask for it one refresh at a time: your machine now, the team's box next, the core when proven.",
+      "steps": [
+        {
+          "k": "Now",
+          "v": "An emergency refresh for the natives: secured, uncapped machines.",
+          "accent": true
+        },
+        {
+          "k": "Next",
+          "v": "A shared workgroup box. Everyone else rides it."
+        },
+        {
+          "k": "When proven",
+          "v": "The core, built out of the growth you create."
+        },
+        {
+          "k": "Always",
+          "v": "The frontier through one gate, metered, for judgment only."
+        }
+      ],
+      "source": "AI-capable PCs pass half of shipments in 2026 (Counterpoint). Power is the long pole: plan it now.",
+      "notes": "And don't ask for a datacenter. You'll lose. Nobody can put one down fast enough, and nobody signs a ten-megawatt facility for a usage base that doesn't exist yet. Sequence it around yourselves. Now: an emergency refresh for the power users — don't wait for the cycle. Next: a workgroup box everyone else shares. The core gets built when you've proven it, out of the growth you create. And the frontier stays, through one gate, metered, for the hard calls. Prices are going up, allocation is tighter, and power is the long pole. This is not an IT ticket.",
+      "n": 20
+    },
+    {
+      "id": "proof",
+      "type": "three",
+      "section": "4 · Selling up the chain",
+      "min": 1,
+      "title": "The winners already run agents on a graph, with a human at the gate.",
+      "head": [
+        "",
+        "What they did",
+        "What it shows"
+      ],
+      "rows": [
+        [
+          "Cisco, 2026",
+          "Agents for 90,000 employees; each picks its model; 80–90% of SEC-filing first drafts; primarily on-prem.",
+          "It works at scale — on their own iron.",
+          true
+        ],
+        [
+          "Salesforce benchmark",
+          "12 agents per enterprise; half operate completely alone.",
+          "Ungoverned agents are the new shadow IT."
+        ],
+        [
+          "Futurum · CMU",
+          "11% of planned agentic use cases reached production; an all-agent company hit 24% task success.",
+          "Loops fail. Graphs with a human at the gate don't."
+        ]
+      ],
+      "source": "Fortune, Jul 2026; Salesforce 2026 Connectivity Benchmark; Futurum 1H 2026; CMU TheAgentCompany.",
+      "notes": "When someone upstairs says this is theoretical: Cisco put agents in front of ninety thousand employees this year. Each agent picks its model. AI writes eighty to ninety percent of the first draft of their SEC filing narratives. Primarily on-prem. Meanwhile the average enterprise runs twelve agents and half report to nobody, which is why only eleven percent of planned agentic projects reach production. The difference is the graph and the human at the gate. Your business brain is the highest-intent object your company will ever own. Don't let it run on someone else's meter.",
+      "n": 21
+    },
+    {
+      "id": "vote",
+      "type": "vote",
+      "section": "5 · The fork",
+      "min": 1.5,
+      "title": "By 2029 every organization has chosen, by acting or by not acting. Vote.",
+      "options": [
+        {
+          "id": "own",
+          "k": "Own the boundary",
+          "v": "Uncap the natives on capacity you own, stand up the ladder, put a shim on every device."
+        },
+        {
+          "id": "rent",
+          "k": "Keep renting",
+          "v": "Sign the renewal, cap the heavy users, trust the contract to cover traffic it never sees."
+        }
+      ],
+      "notes": "So here's the fork. By 2029 the capacity crunch, the renewals and the spikes have all arrived. The only variable left is the decision made back here, now. Scan the code and vote for where your organization actually is — not where you'd like it to be. [wait 30–45 seconds; read the tally] That split is the market. And everyone who voted \"renting\" just found out why they're in the room. (Fallback: show of hands; press 1 for own, 2 for rent.)",
+      "n": 22
+    },
+    {
+      "id": "futures",
+      "type": "futures",
+      "section": "5 · The fork",
+      "min": 1,
+      "title": "Renting goes flat, flat, then vertical. Owning compounds.",
+      "rented": [
+        "The renewal comes per user, in tiers. It isn't a dollar.",
+        "The natives hit the caps within a quarter; the side door does the rest.",
+        "By year four the spike reaches your industry: the routine 80% ships as someone else's feature.",
+        "Your best builders leave — some to build the thing aimed at you."
+      ],
+      "owned": [
+        "The full ladder is standard: device, workgroup, core, gated frontier.",
+        "Enterprise agents with a registry, kill switches and a human at the gate.",
+        "The business brain runs on your rungs and never phones home.",
+        "Small teams outrun giants. The crew that wires the graph is the one everyone quotes."
+      ],
+      "notes": "Here's each branch. Rented: the renewal comes per user, in tiers. The natives hit the caps in a quarter. The spend goes flat, flat, then vertical, and the caps didn't stop it; they moved it to the door the contract doesn't cover. By year four, the spike reaches your industry. Owned: the ladder is standard, the agents have guardrails, and the business brain compounds on your own rungs. It's the moment small, fast teams outrun giants. Be that team.",
+      "n": 23
+    },
+    {
+      "id": "monday",
+      "type": "close",
+      "section": "Monday",
+      "min": 1,
+      "title": "Monday: build the map, log your hours, book three meetings.",
+      "roles": [
+        {
+          "k": "Build the map",
+          "v": "Every system with an AI feature, who pays for its tokens, which model, what fails when it's down. One page."
+        },
+        {
+          "k": "Log your hours",
+          "v": "How long you keep a box busy, for two weeks. Past 5.3 a day, you've paid for the box."
+        },
+        {
+          "k": "Book three",
+          "v": "CFO, CIO, CEO: one sentence each, one ask. Capacity for the people who burn the most."
+        }
+      ],
+      "notes": "Three things for Monday, and none of them need anyone's permission. Build the map: one page, every system with an AI feature, who pays, which model, what breaks when it's down. Log your hours: two weeks of how long you keep a box busy. Past five point three a day you've paid for the box. Then book three meetings — CFO, CIO, CEO — one sentence each, one ask: capacity for the people who burn the most. Go get it before the meter caps you.",
+      "n": 24
+    },
+    {
+      "id": "end",
+      "type": "end",
+      "section": "",
+      "min": 0.5,
+      "title": "Intent is the new oil. Capping tokens is the leak.",
+      "sub": "Go get the capacity.",
+      "notes": "The enemy isn't the lab — the router still sends your hardest calls to the best models in the world, and it should. The enemy is the default. The default plan trains. The default deployment meters. The default org caps its best people and then wonders where they went. You're the best people. Go get the capacity. Thank you.",
+      "n": 25
+    }
+  ]
+}

@@ -1,0 +1,703 @@
+<title>AI Manifesto Talk 5.1C</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>/* V5 talk deck · paper stage. One fixed 1920×1080 stage scaled to the screen.
+   Gray first, colour one thing: --hot is the only colour, and each slide spends it once. */
+:root{
+  --paper:#ebebe5; --card:#e0e0d9; --face:#f4f4ef; --ink:#1b1b19; --text:#3a3a36; --muted:#6a6a63; --rule:#c4c4bc; --hot:#d8373f;
+  --display:"Archivo","Arial Narrow",ui-sans-serif,system-ui,sans-serif;
+  --body:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+html,body{height:100%}
+[hidden]{display:none!important}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--body);overflow:hidden;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--hot);outline-offset:3px}
+
+/* ---------- the stage ---------- */
+.deck{position:fixed;inset:0;background:var(--paper)}
+.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:0 0;background:var(--paper)}
+.slide{position:absolute;inset:0;padding:64px 96px 60px;display:flex;flex-direction:column}
+.slide[hidden]{display:none!important}
+.sl-top{display:flex;justify-content:space-between;align-items:baseline;font:500 22px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:34px}
+.sl-top .no{font-variant-numeric:tabular-nums}
+.t{font:680 64px/1.06 var(--display);font-stretch:84%;letter-spacing:-.012em;color:var(--ink);margin:0 0 36px;max-width:1640px;text-wrap:balance}
+.src{margin:auto 0 0;padding-top:18px;font:400 17px/1.4 var(--mono);color:var(--muted);max-width:1600px}
+h2,h3,p{margin:0}
+
+/* ---------- cover / end ---------- */
+.s-cover,.s-end{padding:0;flex-direction:row}
+.cover{width:1020px;padding:120px 0 96px 112px;display:flex;flex-direction:column;justify-content:center;gap:40px;position:relative;z-index:1}
+.kick{font:500 26px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.cover-t{font:780 132px/.96 var(--display);font-stretch:78%;letter-spacing:-.02em;color:var(--ink);margin:0;text-wrap:balance}
+.cover-t em{font-style:normal;color:var(--hot)}
+.meta{font:500 28px/1.4 var(--mono);color:var(--text);display:flex;gap:18px;flex-wrap:wrap}
+.cover-art{position:absolute;right:-60px;top:110px;width:1060px;height:auto;opacity:.95}
+.end{margin:auto;width:1800px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:36px}
+.end .cover-t{font-size:150px}
+.end .sub{font:600 44px/1 var(--display);font-stretch:90%;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.end .tally{font:500 30px/1.3 var(--mono);color:var(--text);min-height:40px}
+.end .meta{justify-content:center;color:var(--muted);font-size:24px}
+
+/* ---------- quote ---------- */
+.quote{margin:auto 0;max-width:1640px;position:relative;padding-left:120px}
+.quote::before{content:"“";position:absolute;left:-6px;top:-70px;font:800 300px/1 var(--display);color:var(--hot)}
+.quote p{text-indent:0;font:640 96px/1.04 var(--display);font-stretch:82%;letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.quote footer{margin-top:48px;font:400 26px/1.45 var(--mono);color:var(--muted);max-width:1300px}
+
+/* ---------- ask: framework columns ---------- */
+.ask{display:grid;grid-template-columns:1fr 44px 1fr 44px 1fr 44px 1.15fr;align-items:stretch;gap:0 14px;margin:auto 0;min-height:440px}
+.ask-c{background:var(--face);box-shadow:0 0 0 1.5px var(--rule);padding:36px 34px;display:flex;flex-direction:column;gap:18px}
+.ask-c .ix{font:600 24px/1 var(--mono);color:var(--muted)}
+.ask-c h2{font:700 50px/1 var(--display);font-stretch:84%;color:var(--ink)}
+.ask-c p{font:400 29px/1.35 var(--body);color:var(--text)}
+.ask-c.lead{box-shadow:0 0 0 4px var(--hot);background:var(--face)}
+.ask-c.lead h2,.ask-c.lead .ix{color:var(--hot)}
+.ask-c.lead p{color:var(--ink);font-weight:500}
+.ask .arr,.ba .arr{align-self:center;justify-self:center;font:500 44px/1 var(--mono);color:var(--muted)}
+.ask>.arr:nth-last-child(2){color:var(--ink)}
+
+/* ---------- figure slides ---------- */
+.figwrap{flex:1;min-height:0;display:grid;gap:56px}
+.figwrap.wide{grid-template-columns:1fr}
+.figwrap.side{grid-template-columns:1fr 520px}
+.fig{position:relative;min-height:0;height:100%}
+.fig iframe,.fig-still{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:transparent}
+.fig-still{object-fit:contain}
+.fig.live .fig-still{visibility:hidden}
+.stats{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center;gap:44px}
+.stats li{display:flex;flex-direction:column;gap:10px;padding-left:26px;box-shadow:inset 3px 0 0 var(--rule)}
+.stats b{font:760 84px/1 var(--display);font-stretch:80%;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.stats span{font:400 26px/1.35 var(--body);color:var(--text)}
+.stats li.hot{box-shadow:inset 3px 0 0 var(--hot)}
+.stats li.hot b{color:var(--hot)}
+.sl-top .no{display:flex;align-items:center;gap:28px}
+.steps-dots{display:flex;gap:10px}
+.steps-dots i{width:14px;height:14px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--muted)}
+.steps-dots i.on{background:var(--ink);box-shadow:none}
+
+/* ---------- big number ---------- */
+.bignum{flex:1;display:grid;grid-template-columns:1.25fr 1fr;gap:80px;align-items:center}
+.bignum div{display:flex;flex-direction:column;gap:22px}
+.bignum b{font:800 340px/.86 var(--display);font-stretch:76%;letter-spacing:-.03em;color:var(--hot);font-variant-numeric:tabular-nums}
+.bignum span{font:500 30px/1.3 var(--mono);color:var(--text);letter-spacing:.02em}
+.bignum p{font:500 50px/1.18 var(--display);font-stretch:88%;color:var(--ink);text-wrap:balance}
+
+/* ---------- flow ---------- */
+.flow{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.flow li{position:relative;background:var(--face);box-shadow:0 0 0 1.5px var(--rule);padding:40px 64px 40px 40px;font:650 44px/1.08 var(--display);font-stretch:86%;color:var(--ink);clip-path:polygon(0 0,calc(100% - 40px) 0,100% 50%,calc(100% - 40px) 100%,0 100%,40px 50%);min-height:210px;display:flex;flex-direction:column;justify-content:center;gap:14px;padding-left:72px}
+.flow li:first-child{clip-path:polygon(0 0,calc(100% - 40px) 0,100% 50%,calc(100% - 40px) 100%,0 100%);padding-left:40px}
+.flow li span{font:500 22px/1 var(--mono);color:var(--muted)}
+.flow li.hot{background:var(--hot);color:#fff}
+.flow li.hot span{color:#ffe1e2}
+.example{margin-top:72px;display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center}
+.example b{font:780 150px/.9 var(--display);font-stretch:78%;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.example p{font:400 34px/1.35 var(--body);color:var(--text);max-width:860px}
+
+/* ---------- compare table ---------- */
+.cmp,.ex{width:100%;border-collapse:collapse;margin-top:10px}
+.ex{margin:auto 0}
+.cmp th,.cmp td,.ex th,.ex td{text-align:left;padding:24px 28px;font:400 32px/1.3 var(--body);color:var(--text);border-bottom:1.5px solid var(--rule);vertical-align:top}
+.cmp thead th,.ex thead th{font:500 22px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:3px solid var(--ink)}
+.cmp tbody th,.ex tbody th{font:650 34px/1.2 var(--display);font-stretch:86%;color:var(--ink);width:300px}
+.cmp td.side{color:var(--ink);font-weight:500;background:var(--face)}
+.cmp th.side{background:var(--face)}
+.line{margin-top:40px;font:600 42px/1.2 var(--display);font-stretch:88%;color:var(--ink);padding-left:30px;box-shadow:inset 6px 0 0 var(--hot);max-width:1560px;text-wrap:balance}
+
+/* ---------- bars ---------- */
+.bars{display:flex;flex-direction:column;gap:34px;margin-top:6px}
+.keys{display:flex;gap:44px;font:500 24px/1 var(--mono);color:var(--text)}
+.keys span{display:flex;align-items:center;gap:14px}
+.keys span::before{content:"";width:34px;height:18px}
+.keys .ka::before{background:var(--ink)}
+.keys .kb::before{background:var(--face);box-shadow:inset 0 0 0 2px var(--ink)}
+.brow{display:grid;grid-template-columns:330px 1fr 380px;gap:36px;align-items:center}
+.brow h3{font:650 36px/1.1 var(--display);font-stretch:86%;color:var(--ink)}
+.bpair{display:flex;flex-direction:column;gap:10px}
+.bar{display:flex;align-items:center;gap:18px;height:52px}
+.bar i{display:block;height:100%;min-width:4px}
+.bar.a i{background:var(--ink)}
+.bar.b i{background:var(--face);box-shadow:inset 0 0 0 2px var(--ink)}
+.bar b{font:700 40px/1 var(--display);font-stretch:82%;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.brow p{font:500 28px/1.3 var(--mono);color:var(--text)}
+.brow.hot .bar.b i{background:var(--hot);box-shadow:none}
+.brow.hot .bar.b b,.brow.hot p{color:var(--hot)}
+
+/* ---------- models: one row per model, one bar per measure ---------- */
+.models{display:flex;flex-direction:column;gap:0;margin-top:-6px}
+.s-models .line{margin-top:28px}
+.mh,.mr{display:grid;grid-template-columns:460px 1fr 1fr 1fr;gap:40px;align-items:center}
+.mh{padding-bottom:14px;border-bottom:3px solid var(--ink)}
+.mh span{font:500 22px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.mr{padding:16px 0;border-bottom:1.5px solid var(--rule)}
+.mn{display:flex;flex-direction:column;gap:6px}
+.mn b{font:700 42px/1 var(--display);font-stretch:84%;color:var(--ink)}
+.mn span{font:400 21px/1.3 var(--mono);color:var(--muted)}
+.mc{display:flex;align-items:center;gap:16px;height:46px}
+.mc i{display:block;height:100%;min-width:4px;background:var(--ink);opacity:.82}
+.mc b{font:700 40px/1 var(--display);font-stretch:82%;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.mr.hot .mn b,.mr.hot .mc:first-of-type b{color:var(--hot)}
+.mr.hot .mc i{background:var(--hot);opacity:1}
+
+/* ---------- before / lever / after ---------- */
+.ba{display:grid;grid-template-columns:1fr 60px 1.5fr 60px 1fr;gap:0 12px;align-items:center;margin:auto 0}
+.panel{background:var(--face);box-shadow:0 0 0 1.5px var(--rule);padding:44px 40px;display:flex;flex-direction:column;gap:24px;min-height:300px}
+.panel h2{font:500 24px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.panel>p{font:500 40px/1.2 var(--display);font-stretch:88%;color:var(--ink)}
+.panel.lever{box-shadow:0 0 0 4px var(--hot);gap:30px}
+.panel.lever h2{color:var(--hot)}
+.lv b{display:block;font:680 42px/1.1 var(--display);font-stretch:84%;color:var(--ink);margin-bottom:10px}
+.lv p{font:400 28px/1.35 var(--body);color:var(--text)}
+
+/* ---------- timeline ---------- */
+.tl{list-style:none;margin:auto 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;position:relative}
+.tl::before{content:"";position:absolute;left:0;right:0;top:15px;height:3px;background:var(--ink)}
+.tl li{display:flex;flex-direction:column;gap:22px;position:relative}
+.tl i{width:34px;height:34px;border-radius:50%;background:var(--paper);box-shadow:inset 0 0 0 3px var(--ink)}
+.tl li.hot i{background:var(--hot);box-shadow:none}
+.tl h2{font:720 60px/1 var(--display);font-stretch:82%;color:var(--ink)}
+.tl li.hot h2{color:var(--hot)}
+.tl p{font:400 34px/1.35 var(--body);color:var(--text)}
+.tl li:last-child i{box-shadow:inset 0 0 0 3px var(--muted);background:repeating-linear-gradient(45deg,var(--paper) 0 4px,var(--rule) 4px 7px)}
+
+/* ---------- three examples ---------- */
+.ex tbody th{width:330px}
+.ex td.so{font-weight:500;color:var(--ink);width:560px}
+.ex tr.hot td.so{color:var(--hot)}
+.ex tr.hot th{color:var(--hot)}
+
+/* ---------- vote ---------- */
+.vote{flex:1;display:grid;grid-template-columns:1fr 460px;gap:72px;align-items:center}
+.opts{display:flex;flex-direction:column;gap:36px}
+.opt{background:var(--face);box-shadow:0 0 0 1.5px var(--rule);padding:34px 40px;display:flex;flex-direction:column;gap:18px}
+.ok{display:flex;align-items:baseline;gap:24px}
+.ok kbd{font:600 24px/1 var(--mono);color:var(--muted);box-shadow:inset 0 0 0 1.5px var(--muted);padding:6px 10px}
+.ok h2{font:720 58px/1 var(--display);font-stretch:82%;color:var(--ink);flex:1}
+.ok b{font:800 96px/.9 var(--display);font-stretch:78%;color:var(--ink);font-variant-numeric:tabular-nums}
+.opt p{font:400 28px/1.35 var(--body);color:var(--text);max-width:1000px}
+.meterbar{height:22px;background:var(--card)}
+.meterbar i{display:block;height:100%;width:0;background:var(--ink);transition:width .6s cubic-bezier(.32,.72,0,1)}
+.opt[data-opt="own"] .meterbar i{background:var(--hot)}
+.opt[data-opt="own"] .ok b{color:var(--hot)}
+.qr{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.qr-box{width:400px;height:400px;background:var(--face);padding:26px;box-shadow:0 0 0 1.5px var(--rule);display:grid;place-items:center}
+.qr-box img,.qr-box canvas{width:348px!important;height:348px!important;image-rendering:pixelated}
+.qr-l{font:700 44px/1 var(--display);font-stretch:84%;color:var(--ink)}
+.qr-u{font:400 18px/1.3 var(--mono);color:var(--muted);word-break:break-all;max-width:420px}
+.qr-s{font:500 22px/1.3 var(--mono);color:var(--text)}
+
+/* ---------- futures ---------- */
+.fut{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:72px;margin-top:6px}
+.fut section{display:flex;flex-direction:column;gap:22px}
+.fut h2{font:720 56px/1 var(--display);font-stretch:82%;color:var(--ink);padding-bottom:16px;border-bottom:3px solid var(--ink)}
+.fut ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:20px}
+.fut li{font:400 31px/1.32 var(--body);color:var(--text);padding-left:34px;position:relative}
+.fut li::before{content:"";position:absolute;left:0;top:.55em;width:16px;height:3px;background:var(--muted)}
+.spend{width:100%;height:auto;max-height:210px}
+.spend .tk{stroke:var(--rule);stroke-width:2}
+.spend .ax{fill:none;stroke:var(--rule);stroke-width:2}
+.spend .ln{fill:none;stroke:var(--hot);stroke-width:6;stroke-linejoin:round;stroke-linecap:round}
+.spend text{font:500 20px var(--mono);fill:var(--muted)}
+.fut .own h2{color:var(--ink)}
+
+/* ---------- close ---------- */
+.roles{flex:1;display:flex;flex-direction:column;justify-content:center;gap:0}
+.role{display:grid;grid-template-columns:440px 1fr;gap:48px;padding:38px 0;border-top:1.5px solid var(--rule);align-items:baseline}
+.role:last-child{border-bottom:1.5px solid var(--rule)}
+.role h2{font:740 64px/1 var(--display);font-stretch:80%;color:var(--ink)}
+.role p{font:400 36px/1.32 var(--body);color:var(--text)}
+.role:first-child h2{color:var(--hot)}
+
+/* ---------- chrome: progress, controls ---------- */
+.hud{position:fixed;left:0;right:0;bottom:0;height:6px;pointer-events:none}
+.prog{height:100%;background:transparent}
+.prog i{display:block;height:100%;width:0;background:var(--ink);transition:width .4s cubic-bezier(.32,.72,0,1)}
+.ctl{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:6px;font:500 14px/1 var(--mono);color:var(--muted);opacity:.25;transition:opacity .2s}
+.ctl:hover,.ctl:focus-within{opacity:1}
+.ctl button{background:var(--face);border:0;box-shadow:0 0 0 1px var(--rule);color:var(--ink);width:34px;height:30px}
+.ctl span{padding:0 8px;font-variant-numeric:tabular-nums}
+
+/* ---------- overlays ---------- */
+.notes{position:fixed;left:0;right:0;bottom:0;max-height:42vh;overflow:auto;background:var(--ink);color:#efefe9;z-index:20;padding-block:18px calc(22px + env(safe-area-inset-bottom,0px));padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.notes-in{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.n-meta{font:500 13px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#a9a9a1}
+.n-text{font:400 clamp(16px,1.6vw,22px)/1.5 var(--body)}
+.overview,.help{position:fixed;inset:0;z-index:30;background:color-mix(in srgb,var(--paper) 96%,transparent);overflow:auto;padding-block:40px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.overview h2,.help h2{font:600 15px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);max-width:1100px;margin:0 auto 22px}
+.overview ol{max-width:1100px;margin:0 auto;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px;counter-reset:ov}
+.overview li button{all:unset;cursor:pointer;display:grid;grid-template-columns:48px 1fr;gap:16px;padding:9px 12px;width:100%;box-sizing:border-box;font:560 clamp(16px,1.7vw,22px)/1.3 var(--display);font-stretch:90%;color:var(--ink)}
+.overview li button:hover,.overview li button:focus-visible,.overview li.cur button{background:var(--face)}
+.overview li .k{font:500 14px/1.9 var(--mono);color:var(--muted)}
+.overview li.sec{font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--hot);padding:16px 12px 6px}
+.help>div{max-width:640px;margin:0 auto}
+.help dl{display:grid;grid-template-columns:auto 1fr;gap:10px 22px;font:400 16px/1.4 var(--body);color:var(--text)}
+.help dt{font:600 14px/1.5 var(--mono);color:var(--ink)}
+.help dd{margin:0}
+
+/* ---------- presenter view ---------- */
+.presenter{position:fixed;inset:0;z-index:40;background:#121211;color:#eeeee8;display:grid;grid-template-rows:auto 1fr auto;padding-block:20px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px));gap:16px;font-family:var(--body)}
+.presenter header{display:flex;align-items:baseline;gap:24px;flex-wrap:wrap}
+.presenter header b{font:700 clamp(32px,5vw,64px)/1 var(--mono);font-variant-numeric:tabular-nums}
+#p-pace{font:500 18px/1.2 var(--mono);color:#b8b8b0}
+#p-pace.late{color:#ff8a8f}
+.presenter button{background:#2a2a28;color:#eeeee8;border:0;padding:10px 16px;font:500 15px/1 var(--mono)}
+.presenter main{overflow:auto;display:flex;flex-direction:column;gap:12px;min-height:0}
+.p-now{font:680 clamp(22px,2.6vw,36px)/1.15 var(--display);font-stretch:88%}
+.p-step{font:500 14px/1 var(--mono);color:#b8b8b0;letter-spacing:.08em;text-transform:uppercase}
+.p-notes{font:400 clamp(18px,2vw,27px)/1.5 var(--body);max-width:68ch;color:#e6e6df}
+.presenter footer{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;border-top:1px solid #3a3a37;padding-top:14px}
+.presenter footer span{font:500 13px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#8d8d86}
+.presenter footer p{font:500 18px/1.3 var(--display);font-stretch:92%;color:#c9c9c2}
+.p-ctl{display:flex;gap:8px}
+
+/* ---------- audience vote page (#vote) ---------- */
+.votepage{position:fixed;inset:0;z-index:50;background:var(--paper);overflow:auto;display:flex;flex-direction:column;gap:22px;padding-block:40px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));align-items:center}
+.votepage h1{font:720 clamp(30px,6vw,56px)/1.05 var(--display);font-stretch:84%;color:var(--ink);margin:0;max-width:820px;text-wrap:balance}
+.vp-sub{font:400 18px/1.4 var(--body);color:var(--muted);max-width:820px;width:100%}
+.vp-opts{display:flex;flex-direction:column;gap:16px;width:100%;max-width:820px}
+.vp-opts button{all:unset;cursor:pointer;background:var(--face);box-shadow:0 0 0 1.5px var(--rule);padding:22px 22px;display:flex;flex-direction:column;gap:8px}
+.vp-opts button b{font:720 clamp(26px,5vw,40px)/1 var(--display);font-stretch:84%;color:var(--ink)}
+.vp-opts button span{font:400 17px/1.4 var(--body);color:var(--text)}
+.vp-opts button[aria-pressed="true"]{box-shadow:0 0 0 4px var(--hot)}
+.vp-opts button[aria-pressed="true"] b{color:var(--hot)}
+.vp-opts button:focus-visible{outline:3px solid var(--hot);outline-offset:3px}
+.vp-status{font:500 16px/1.4 var(--mono);color:var(--text);max-width:820px;width:100%}
+body.mode-vote .deck,body.mode-vote .ctl{display:none}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<div class="deck" id="deck">
+  <div class="stage" id="stage">
+<section class="slide s-cover" id="s1" data-type="cover" aria-label="Slide 1: Intent is the new oil. Capping tokens is the leak.">
+    <div class="cover">
+      <p class="kick">For the one in a thousand</p>
+      <h1 class="cover-t">Intent is the new oil.<br>Capping tokens is the <em>leak</em>.</h1>
+      <p class="meta">Brad Baker<span aria-hidden="true">·</span>30 minutes<span aria-hidden="true">·</span>one vote</p>
+    </div>
+    <img class="cover-art" alt="" src="figures/loop/loop.svg"></section>
+<section class="slide s-quote" id="s2" data-type="quote" aria-label="Slide 2: “My company spent my entire 2026 budget in Q1. Can you make this more efficient?”" hidden>
+  <header class="sl-top"><span class="sec">The problem</span><span class="no">02</span></header>
+    <blockquote class="quote"><p>My company spent my entire 2026 budget in Q1. Can you make this more efficient?”</p><footer>A client complaint Sam Altman quoted on stage, June 2026. He called token costs “a huge issue” that “never came up” six months earlier.</footer></blockquote></section>
+<section class="slide s-fig" id="s3" data-type="fig" aria-label="Slide 3: You're the one in a thousand. That's why the people who sign can't see what you see." hidden>
+  <header class="sl-top"><span class="sec">You</span><span class="no"><span class="steps-dots" aria-hidden="true"><i></i><i></i></span>03</span></header><h1 class="t ">You're the one in a thousand. That's why the people who sign can't see what you see.</h1>
+    <div class="figwrap side">
+      <div class="fig" data-slot="natives">
+    <img class="fig-still" alt="" src="figures/natives/natives-2.svg" data-still>
+    <iframe title="You're the one in a thousand. That's why the people who sign can't see what you see." tabindex="-1" loading="lazy" data-src="figures/natives/natives.html?embed=1&still=1&board=0&state=1"></iframe>
+  </div>
+      <ul class="stats"><li class="hot"><b>1 in 1,000</b><span>people actually building their own agents on a harness: you</span></li><li><b>&gt; 998</b><span>you burn more tokens than everyone else in the building combined</span></li><li><b>3 months</b><span>until the people next to you are doing it too, on the same meter</span></li></ul>
+    </div>
+    <p class="src">1-in-1,000: Brad's field observation of people building their own agents. Spread illustrative.</p></section>
+<section class="slide s-ask" id="s4" data-type="ask" aria-label="Slide 4: Your ask upstairs: owned capacity for the people who burn the most, not more seats." hidden>
+  <header class="sl-top"><span class="sec">The answer first</span><span class="no">04</span></header><h1 class="t ">Your ask upstairs: owned capacity for the people who burn the most, not more seats.</h1>
+    <div class="ask">
+      <div class="ask-c"><span class="ix">1</span><h2>The meter</h2><p>Demand outruns price. The bill detonates in the quarters you're winning.</p></div><span class="arr" aria-hidden="true">→</span><div class="ask-c"><span class="ix">2</span><h2>The leak</h2><p>Cap you, and you route around them — through a door the contract doesn't cover.</p></div><span class="arr" aria-hidden="true">→</span><div class="ask-c"><span class="ix">3</span><h2>The ladder</h2><p>Three rungs you own, one gate you rent. Volume uncapped; judgment escalates.</p></div><span class="arr" aria-hidden="true">→</span>
+      <div class="ask-c lead"><span class="ix">=</span><h2>Your kit</h2><p>Three sentences, two numbers, one ask. You leave with all of them.</p></div>
+    </div></section>
+<section class="slide s-fig" id="s5" data-type="fig" aria-label="Slide 5: Token demand rose a millionfold; the price fell sixteenfold. The bill is the problem." hidden>
+  <header class="sl-top"><span class="sec">1 · The meter</span><span class="no"><span class="steps-dots" aria-hidden="true"><i></i><i></i></span>05</span></header><h1 class="t ">Token demand rose a millionfold; the price fell sixteenfold. The bill is the problem.</h1>
+    <div class="figwrap side">
+      <div class="fig" data-slot="token-meter">
+    <img class="fig-still" alt="" src="figures/token-meter/token-meter.svg" data-still>
+    <iframe title="Token demand rose a millionfold; the price fell sixteenfold. The bill is the problem." tabindex="-1" loading="lazy" data-src="figures/token-meter/token-meter.html?embed=1&still=1&board=1&state=0"></iframe>
+  </div>
+      <ul class="stats"><li><b>×1,000,000</b><span>top customer's tokens a month, 2019 → 2026 (100K → 100B)</span></li><li><b>÷16</b><span>frontier list price per million tokens ($60 → $3.85)</span></li><li class="hot"><b>×64,000</b><span>the monthly bill</span></li></ul>
+    </div>
+    <p class="src">Altman on stage, June 2026 (volume); 2020 API launch pricing and Artificial Analysis (price); log-interpolated.</p></section>
+<section class="slide s-big" id="s6" data-type="big" aria-label="Slide 6: One three-person team burned 603 billion tokens in a month." hidden>
+  <header class="sl-top"><span class="sec">1 · The meter</span><span class="no">06</span></header><h1 class="t ">One three-person team burned 603 billion tokens in a month.</h1>
+    <div class="bignum"><div><b>$1.3M</b><span>one month · ~100 coding agents · 7.6M requests</span></div><p>That's what you look like at full speed. Make them budget for it, instead of discovering it.</p></div><p class="src">OpenClaw creator Peter Steinberger's published monthly bill (Tom's Hardware).</p></section>
+<section class="slide s-flow" id="s7" data-type="flow" aria-label="Slide 7: Every flat plan dies the same way: hooked first, metered second." hidden>
+  <header class="sl-top"><span class="sec">1 · The meter</span><span class="no">07</span></header><h1 class="t ">Every flat plan dies the same way: hooked first, metered second.</h1>
+    <ol class="flow"><li><span>1</span>Flat plan</li><li><span>2</span>5-hour session caps</li><li><span>3</span>Weekly caps</li><li class="hot"><span>4</span>Pay-as-you-go overflow</li></ol>
+    <div class="example"><b>0 → 19,000</b><p>users in 45 days at one large agency — then rationing, because small jobs by hundreds of thousands of people “get expensive real, real fast.”</p></div><p class="src">Usage-limit changes, 2026; AI Weekly, Aug 2026 (the agency rollout).</p></section>
+<section class="slide s-fig" id="s8" data-type="fig" aria-label="Slide 8: The median business spends $137 a person a year on AI. The best spend half a salary." hidden>
+  <header class="sl-top"><span class="sec">1 · The meter</span><span class="no"><span class="steps-dots" aria-hidden="true"><i></i><i></i><i></i></span>08</span></header><h1 class="t ">The median business spends $137 a person a year on AI. The best spend half a salary.</h1>
+    <div class="figwrap side">
+      <div class="fig" data-slot="scale">
+    <img class="fig-still" alt="" src="figures/scale/scale-1.svg" data-still>
+    <iframe title="The median business spends $137 a person a year on AI. The best spend half a salary." tabindex="-1" loading="lazy" data-src="figures/scale/scale.html?embed=1&still=1&board=0&state=0"></iframe>
+  </div>
+      <ul class="stats"><li class="hot"><b>$137</b><span>median business, per employee a year</span></li><li><b>$89K</b><span>top 1% of businesses, growing ~14% a month</span></li><li><b>$250K</b><span>Jensen Huang's bar for a $500K engineer — half the salary</span></li></ul>
+    </div>
+    <p class="src">Ramp AI Index, June 2026 (70,000+ US businesses, annualized); Huang on the record (Tom's Hardware).</p></section>
+<section class="slide s-fig" id="s9" data-type="fig" aria-label="Slide 9: Models could do 94% of the tasks in computing jobs. We let them do a third." hidden>
+  <header class="sl-top"><span class="sec">1 · The meter</span><span class="no"><span class="steps-dots" aria-hidden="true"><i></i><i></i><i></i></span>09</span></header><h1 class="t ">Models could do 94% of the tasks in computing jobs. We let them do a third.</h1>
+    <div class="figwrap wide">
+      <div class="fig" data-slot="loom">
+    <img class="fig-still" alt="" src="figures/loom/loom-1.svg" data-still>
+    <iframe title="Models could do 94% of the tasks in computing jobs. We let them do a third." tabindex="-1" loading="lazy" data-src="figures/loom/loom.html?embed=1&still=1&board=side&state=0"></iframe>
+  </div>
+      
+    </div>
+    <p class="src">Massenkoff &amp; McCrory, “Labor market impacts of AI,” Anthropic, 5 March 2026.</p></section>
+<section class="slide s-fig" id="s10" data-type="fig" aria-label="Slide 10: When they cap you, the side door is right there, and the contract doesn't cover it." hidden>
+  <header class="sl-top"><span class="sec">2 · The leak</span><span class="no"><span class="steps-dots" aria-hidden="true"><i></i><i></i><i></i></span>10</span></header><h1 class="t ">When they cap you, the side door is right there, and the contract doesn't cover it.</h1>
+    <div class="figwrap side">
+      <div class="fig" data-slot="doors">
+    <img class="fig-still" alt="" src="figures/doors/doors-1.svg" data-still>
+    <iframe title="When they cap you, the side door is right there, and the contract doesn't cover it." tabindex="-1" loading="lazy" data-src="figures/doors/doors.html?embed=1&still=1&board=0&state=0"></iframe>
+  </div>
+      <ul class="stats"><li class="hot"><b>66%</b><span>of office workers used AI tools they believed weren't allowed</span></li><li><b>88%</b><span>shared work information through them</span></li><li><b>81%</b><span>believe leadership plays by different rules</span></li></ul>
+    </div>
+    <p class="src">PagerDuty, June 2026 (n = 1,250 office professionals, companies ≥ $500M).</p></section>
+<section class="slide s-compare" id="s11" data-type="compare" aria-label="Slide 11: The contract protects the front door. The training toggle lives at the side door." hidden>
+  <header class="sl-top"><span class="sec">2 · The leak</span><span class="no">11</span></header><h1 class="t ">The contract protects the front door. The training toggle lives at the side door.</h1>
+    <table class="cmp"><thead><tr><th></th><th>Enterprise · API · government</th><th class="side">Consumer plans</th></tr></thead>
+    <tbody><tr><th scope="row">Who's on it</th><td>The seats you provisioned</td><td class="side">Two-thirds of the workforce, quietly</td></tr><tr><th scope="row">Training</th><td>Excluded by commercial terms</td><td class="side">A toggle in the user's settings</td></tr><tr><th scope="row">Retention</th><td>Zero-retention agreements exist</td><td class="side">Five years, if the toggle is on</td></tr><tr><th scope="row">Who sees it</th><td>Your contract, your logs</td><td class="side">Nobody at your company</td></tr></tbody></table>
+    <p class="line">What leaks isn't customer data. It's how you work: which tools, which decisions, which features you're building next.</p><p class="src">Anthropic consumer terms (Aug 2025) and commercial terms; equivalent terms at every major lab.</p></section>
+<section class="slide s-fig" id="s12" data-type="fig" aria-label="Slide 12: The labs ship where the usage map is dense: images, code, security, finance, legal." hidden>
+  <header class="sl-top"><span class="sec">2 · The leak</span><span class="no"><span class="steps-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>12</span></header><h1 class="t ">The labs ship where the usage map is dense: images, code, security, finance, legal.</h1>
+    <div class="figwrap wide">
+      <div class="fig" data-slot="spikes">
+    <img class="fig-still" alt="" src="figures/spikes/spikes-1.svg" data-still>
+    <iframe title="The labs ship where the usage map is dense: images, code, security, finance, legal." tabindex="-1" loading="lazy" data-src="figures/spikes/spikes.html?embed=1&still=1&board=0&state=0"></iframe>
+  </div>
+      
+    </div>
+    <p class="src">Public product launches, in order; Anthropic Economic Index (30+ categories); Artificial Analysis Intelligence Index v4.3.2, Oct 2026 (46 vs 58). Heights illustrative; the causal reading is Brad's.</p></section>
+<section class="slide s-fig" id="s13" data-type="fig" aria-label="Slide 13: Capping tokens starts an eight-step loop. Owned capacity breaks it at step three." hidden>
+  <header class="sl-top"><span class="sec">2 · The leak</span><span class="no"><span class="steps-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>13</span></header><h1 class="t ">Capping tokens starts an eight-step loop. Owned capacity breaks it at step three.</h1>
+    <div class="figwrap wide">
+      <div class="fig" data-slot="loop">
+    <img class="fig-still" alt="" src="figures/loop/loop-1.svg" data-still>
+    <iframe title="Capping tokens starts an eight-step loop. Owned capacity breaks it at step three." tabindex="-1" loading="lazy" data-src="figures/loop/loop.html?embed=1&still=1&board=side&state=0"></iframe>
+  </div>
+      
+    </div>
+    <p class="src">PagerDuty, June 2026; AI Weekly, Aug 2026; Anthropic consumer terms, Aug 2025; Anthropic Economic Index.</p></section>
+<section class="slide s-models" id="s14" data-type="models" aria-label="Slide 14: The best open model now beats last spring's frontier, at a twentieth of the price." hidden>
+  <header class="sl-top"><span class="sec">3 · The ladder</span><span class="no">14</span></header><h1 class="t ">The best open model now beats last spring's frontier, at a twentieth of the price.</h1>
+    <div class="models"><div class="mh"><span></span><span>Intelligence index</span><span>$ per million tokens</span><span>Tokens per second</span></div>
+    <div class="mr"><div class="mn"><b>Opus 5.5</b><span>frontier · metered</span></div><div class="mc"><i style="width:100.0%"></i><b>58</b></div><div class="mc"><i style="width:76.4%"></i><b>$2.94</b></div><div class="mc"><i style="width:74.6%"></i><b>98</b></div></div><div class="mr hot"><div class="mn"><b>MiMo-V2.6-Pro</b><span>best open weights · MIT licence</span></div><div class="mc"><i style="width:79.3%"></i><b>46</b></div><div class="mc"><i style="width:4.7%"></i><b>$0.18</b></div><div class="mc"><i style="width:36.7%"></i><b>48</b></div></div><div class="mr"><div class="mn"><b>Opus 4.8</b><span>the frontier in May</span></div><div class="mc"><i style="width:72.4%"></i><b>42</b></div><div class="mc"><i style="width:100.0%"></i><b>$3.85</b></div><div class="mc"><i style="width:49.7%"></i><b>65</b></div></div><div class="mr"><div class="mn"><b>Muse Spark Open</b><span>best US open weights · Muse licence</span></div><div class="mc"><i style="width:67.2%"></i><b>39</b></div><div class="mc"><i style="width:20.3%"></i><b>$0.78</b></div><div class="mc"><i style="width:100.0%"></i><b>131</b></div></div></div>
+    <p class="line">Run open weights uncapped on capacity you own. Escalate to the 58 for judgment only.</p><p class="src">Artificial Analysis Intelligence Index v4.3.2 and model pages, read 18 Oct 2026. Blended $/M at 7:2:1 cache-hit:input:output; output speed on the first-party API.</p></section>
+<section class="slide s-fig" id="s15" data-type="fig" aria-label="Slide 15: Three rungs you own, one gate you rent: routine stays inside, judgment escalates." hidden>
+  <header class="sl-top"><span class="sec">3 · The ladder</span><span class="no"><span class="steps-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>15</span></header><h1 class="t ">Three rungs you own, one gate you rent: routine stays inside, judgment escalates.</h1>
+    <div class="figwrap side">
+      <div class="fig" data-slot="ladder">
+    <img class="fig-still" alt="" src="figures/ladder/ladder-1.svg" data-still>
+    <iframe title="Three rungs you own, one gate you rent: routine stays inside, judgment escalates." tabindex="-1" loading="lazy" data-src="figures/ladder/ladder.html?embed=1&still=1&board=0&state=0"></iframe>
+  </div>
+      <ul class="stats"><li><b>46</b><span>open weights on the rungs you own: $0.18 per million tokens, uncapped</span></li><li class="hot"><b>58</b><span>the frontier, through one gate: $2.94 per million, metered</span></li><li><b>1 gate</b><span>sensitive context stripped on the way out</span></li></ul>
+    </div>
+    <p class="src">Artificial Analysis Intelligence Index v4.3.2, Oct 2026. Token mix illustrative.</p></section>
+<section class="slide s-fig" id="s16" data-type="fig" aria-label="Slide 16: On a Tuesday, four pieces of an RFP stay inside. Two leave without the bid." hidden>
+  <header class="sl-top"><span class="sec">3 · The ladder</span><span class="no"><span class="steps-dots" aria-hidden="true"><i></i><i></i><i></i></span>16</span></header><h1 class="t ">On a Tuesday, four pieces of an RFP stay inside. Two leave without the bid.</h1>
+    <div class="figwrap wide">
+      <div class="fig" data-slot="rfp">
+    <img class="fig-still" alt="" src="figures/rfp/rfp-1.svg" data-still>
+    <iframe title="On a Tuesday, four pieces of an RFP stay inside. Two leave without the bid." tabindex="-1" loading="lazy" data-src="figures/rfp/rfp.html?embed=1&still=1&board=side&state=0"></iframe>
+  </div>
+      
+    </div>
+    <p class="src">Illustrative workflow from the manifesto.</p></section>
+<section class="slide s-fig" id="s17" data-type="fig" aria-label="Slide 17: Past 5.3 hours a day, owning the box beats renting it. You already work twelve." hidden>
+  <header class="sl-top"><span class="sec">3 · The ladder</span><span class="no"><span class="steps-dots" aria-hidden="true"><i></i><i></i><i></i></span>17</span></header><h1 class="t ">Past 5.3 hours a day, owning the box beats renting it. You already work twelve.</h1>
+    <div class="figwrap wide">
+      <div class="fig" data-slot="vending">
+    <img class="fig-still" alt="" src="figures/vending/vending-2.svg" data-still>
+    <iframe title="Past 5.3 hours a day, owning the box beats renting it. You already work twelve." tabindex="-1" loading="lazy" data-src="figures/vending/vending.html?embed=1&still=1&board=side&state=1"></iframe>
+  </div>
+      
+    </div>
+    <p class="src">Lenovo 2026 TCO (vendor study): 5-year life, zero residual, 12% maintenance, $0.12/kWh; ~5.2-month break-even. Frontier and wrapped rates are Brad's reads.</p></section>
+<section class="slide s-fig" id="s18" data-type="fig" aria-label="Slide 18: Your job upstairs: send each office the one sentence it can sign." hidden>
+  <header class="sl-top"><span class="sec">4 · Selling up the chain</span><span class="no"><span class="steps-dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>18</span></header><h1 class="t ">Your job upstairs: send each office the one sentence it can sign.</h1>
+    <div class="figwrap wide">
+      <div class="fig" data-slot="tubes">
+    <img class="fig-still" alt="" src="figures/tubes/tubes-1.svg" data-still>
+    <iframe title="Your job upstairs: send each office the one sentence it can sign." tabindex="-1" loading="lazy" data-src="figures/tubes/tubes.html?embed=1&still=1&board=0&state=0"></iframe>
+  </div>
+      
+    </div>
+    <p class="src">The manifesto's three drivers — pricing, security, operations — translated per office.</p></section>
+<section class="slide s-ba" id="s19" data-type="ba" aria-label="Slide 19: Bring two numbers upstairs: your token-burn map and your hours a day." hidden>
+  <header class="sl-top"><span class="sec">4 · Selling up the chain</span><span class="no">19</span></header><h1 class="t ">Bring two numbers upstairs: your token-burn map and your hours a day.</h1>
+    <div class="ba">
+      <div class="panel"><h2>Before</h2><p>AI is a line item: seats, a subscription, a cap when it runs hot.</p></div>
+      <span class="arr" aria-hidden="true">→</span>
+      <div class="panel lever"><h2>The lever</h2><div class="lv"><b>1 · Your token-burn map</b><p>Every system with an AI feature, who pays for its tokens, which model it calls, what breaks when that model is down.</p></div><div class="lv"><b>2 · Your hours a day</b><p>How long you keep a box busy. Above 5.3, capacity is cheaper than rent.</p></div></div>
+      <span class="arr" aria-hidden="true">→</span>
+      <div class="panel"><h2>After</h2><p>AI is capacity: a purchase with a payback date, sized to the people who burn the most.</p></div>
+    </div></section>
+<section class="slide s-steps" id="s20" data-type="steps" aria-label="Slide 20: Ask for it one refresh at a time: your machine now, the team's box next, the core when proven." hidden>
+  <header class="sl-top"><span class="sec">4 · Selling up the chain</span><span class="no">20</span></header><h1 class="t ">Ask for it one refresh at a time: your machine now, the team's box next, the core when proven.</h1>
+    <ol class="tl"><li class="hot"><i></i><h2>Now</h2><p>An emergency refresh for the natives: secured, uncapped machines.</p></li><li><i></i><h2>Next</h2><p>A shared workgroup box. Everyone else rides it.</p></li><li><i></i><h2>When proven</h2><p>The core, built out of the growth you create.</p></li><li><i></i><h2>Always</h2><p>The frontier through one gate, metered, for judgment only.</p></li></ol><p class="src">AI-capable PCs pass half of shipments in 2026 (Counterpoint). Power is the long pole: plan it now.</p></section>
+<section class="slide s-three" id="s21" data-type="three" aria-label="Slide 21: The winners already run agents on a graph, with a human at the gate." hidden>
+  <header class="sl-top"><span class="sec">4 · Selling up the chain</span><span class="no">21</span></header><h1 class="t ">The winners already run agents on a graph, with a human at the gate.</h1>
+    <table class="ex"><thead><tr><th></th><th>What they did</th><th>What it shows</th></tr></thead>
+    <tbody><tr class="hot"><th scope="row">Cisco, 2026</th><td>Agents for 90,000 employees; each picks its model; 80–90% of SEC-filing first drafts; primarily on-prem.</td><td class="so">It works at scale — on their own iron.</td></tr><tr><th scope="row">Salesforce benchmark</th><td>12 agents per enterprise; half operate completely alone.</td><td class="so">Ungoverned agents are the new shadow IT.</td></tr><tr><th scope="row">Futurum · CMU</th><td>11% of planned agentic use cases reached production; an all-agent company hit 24% task success.</td><td class="so">Loops fail. Graphs with a human at the gate don't.</td></tr></tbody></table><p class="src">Fortune, Jul 2026; Salesforce 2026 Connectivity Benchmark; Futurum 1H 2026; CMU TheAgentCompany.</p></section>
+<section class="slide s-vote" id="s22" data-type="vote" aria-label="Slide 22: By 2029 every organization has chosen, by acting or by not acting. Vote." hidden>
+  <header class="sl-top"><span class="sec">5 · The fork</span><span class="no">22</span></header><h1 class="t ">By 2029 every organization has chosen, by acting or by not acting. Vote.</h1>
+    <div class="vote">
+      <div class="opts">
+        <div class="opt" data-opt="own"><div class="ok"><kbd>1</kbd><h2>Own the boundary</h2><b data-count="own">0</b></div><p>Uncap the natives on capacity you own, stand up the ladder, put a shim on every device.</p><div class="meterbar"><i data-bar="own"></i></div></div>
+        <div class="opt" data-opt="rent"><div class="ok"><kbd>2</kbd><h2>Keep renting</h2><b data-count="rent">0</b></div><p>Sign the renewal, cap the heavy users, trust the contract to cover traffic it never sees.</p><div class="meterbar"><i data-bar="rent"></i></div></div>
+      </div>
+      <aside class="qr"><div id="qr" class="qr-box" aria-label="QR code to the vote"></div><p class="qr-l">Scan to vote</p><p class="qr-u" data-vote-url></p><p class="qr-s" data-vote-status>Show of hands works too.</p></aside>
+    </div></section>
+<section class="slide s-futures" id="s23" data-type="futures" aria-label="Slide 23: Renting goes flat, flat, then vertical. Owning compounds." hidden>
+  <header class="sl-top"><span class="sec">5 · The fork</span><span class="no">23</span></header><h1 class="t ">Renting goes flat, flat, then vertical. Owning compounds.</h1>
+    <div class="fut">
+      <section class="rent"><h2>Keep renting</h2>
+        <svg class="spend" viewBox="0 0 820 220" role="img" aria-label="Spend over three years: flat, flat, then vertical"><path class="ax" d="M40 180H800M40 180V14"/><path class="tk" d="M290 180v8M540 180v8M790 180v8"/><path class="ln" d="M40 164 L290 161 L540 154 L640 138 L700 96 L740 22"/><text x="50" y="26">spend</text><text x="165" y="210" text-anchor="middle">year 1</text><text x="415" y="210" text-anchor="middle">year 2</text><text x="665" y="210" text-anchor="middle">year 3</text></svg>
+        <ul><li>The renewal comes per user, in tiers. It isn't a dollar.</li><li>The natives hit the caps within a quarter; the side door does the rest.</li><li>By year four the spike reaches your industry: the routine 80% ships as someone else's feature.</li><li>Your best builders leave — some to build the thing aimed at you.</li></ul></section>
+      <section class="own"><h2>Own the boundary</h2><ul><li>The full ladder is standard: device, workgroup, core, gated frontier.</li><li>Enterprise agents with a registry, kill switches and a human at the gate.</li><li>The business brain runs on your rungs and never phones home.</li><li>Small teams outrun giants. The crew that wires the graph is the one everyone quotes.</li></ul></section>
+    </div></section>
+<section class="slide s-close" id="s24" data-type="close" aria-label="Slide 24: Monday: build the map, log your hours, book three meetings." hidden>
+  <header class="sl-top"><span class="sec">Monday</span><span class="no">24</span></header><h1 class="t ">Monday: build the map, log your hours, book three meetings.</h1>
+    <div class="roles"><div class="role"><h2>Build the map</h2><p>Every system with an AI feature, who pays for its tokens, which model, what fails when it's down. One page.</p></div><div class="role"><h2>Log your hours</h2><p>How long you keep a box busy, for two weeks. Past 5.3 a day, you've paid for the box.</p></div><div class="role"><h2>Book three</h2><p>CFO, CIO, CEO: one sentence each, one ask. Capacity for the people who burn the most.</p></div></div></section>
+<section class="slide s-end" id="s25" data-type="end" aria-label="Slide 25: Intent is the new oil. Capping tokens is the leak." hidden>
+    <div class="end"><h1 class="cover-t">Intent is the new oil.<br>Capping tokens is the <em>leak</em>.</h1><p class="sub">Go get the capacity.</p>
+    <p class="tally" data-tally></p><p class="meta">Brad Baker · An AI Manifesto · V5.1C · commercial</p></div></section>
+  </div>
+  <div class="hud" aria-hidden="true"><div class="prog"><i id="prog"></i></div></div>
+  <nav class="ctl" aria-label="Deck controls">
+    <button type="button" id="b-prev" aria-label="Previous">←</button>
+    <span id="count">1 / 25</span>
+    <button type="button" id="b-next" aria-label="Next">→</button>
+    <button type="button" id="b-help" aria-label="Keys">?</button>
+  </nav>
+</div>
+<div class="notes" id="notes" hidden><div class="notes-in"><p class="n-meta" id="n-meta"></p><p class="n-text" id="n-text"></p></div></div>
+<div class="overview" id="overview" hidden><h2>The ghost deck · titles only</h2><ol id="ov-list"></ol></div>
+<div class="help" id="help" hidden><div><h2>Keys</h2><dl>
+  <dt>→ · Space · PgDn</dt><dd>next step / slide</dd><dt>← · PgUp</dt><dd>back</dd>
+  <dt>N</dt><dd>speaker notes</dd><dt>O</dt><dd>ghost deck (titles only)</dd><dt>P</dt><dd>presenter view (open the same link in a second window, add #presenter)</dd>
+  <dt>F</dt><dd>full screen</dd><dt>1 · 2</dt><dd>on the vote: add a hand for own · rent (Shift removes one)</dd><dt>Esc</dt><dd>close</dd></dl></div></div>
+<div class="presenter" id="presenter" hidden>
+  <header><b id="p-clock">00:00</b><span id="p-pace"></span><button type="button" id="p-reset">Reset clock</button></header>
+  <main><p class="p-now" id="p-now"></p><p class="p-step" id="p-step"></p><div class="p-notes" id="p-notes"></div></main>
+  <footer><span>Next</span><p id="p-next"></p><div class="p-ctl"><button type="button" id="p-prev">← Back</button><button type="button" id="p-next-b">Next →</button></div></footer>
+</div>
+<div class="votepage" id="votepage" hidden>
+  <h1>By 2029, which future is your organization standing in?</h1>
+  <p class="vp-sub">Be honest about where you are, not where you'd like to be.</p>
+  <div class="vp-opts"><button type="button" data-vote="own"><b>Own the boundary</b><span>Uncap the natives on capacity you own, stand up the ladder, put a shim on every device.</span></button><button type="button" data-vote="rent"><b>Keep renting</b><span>Sign the renewal, cap the heavy users, trust the contract to cover traffic it never sees.</span></button></div>
+  <p class="vp-status" id="vp-status" aria-live="polite"></p>
+</div>
+<script>window.DECK={"slides":[{"id":"cover","type":"cover","title":"Intent is the new oil. Capping tokens is the leak.","section":"","min":0.5,"notes":"This talk is for you — the one in a thousand. The people who build with AI, not the ones who were issued a seat. You see something your leadership doesn't. My job in the next thirty minutes is to hand you the facts and the exact sentences to carry upstairs, so you come back with capacity instead of a cap. At the end, you vote.","fig":null},{"id":"q1","type":"quote","title":"“My company spent my entire 2026 budget in Q1. Can you make this more efficient?”","section":"The problem","min":1,"notes":"This isn't me. This is the vendor's own CEO, on stage in June, quoting a customer. Six months earlier nobody asked this question. Now it's the question. And look around: the reason that budget went in Q1 is in this room. It's you. Hands up if you've been asked to \"be more efficient\" with tokens this year. [pause] Keep it up if the answer upstairs was a cap. That's who I'm talking to. Altman's answer is efficiency. Mine is ownership.","fig":null},{"id":"you","type":"fig","title":"You're the one in a thousand. That's why the people who sign can't see what you see.","section":"You","min":1,"notes":"Here's the floor of your company. A thousand people. Two of them are building agents on a harness and burning more tokens than the other nine hundred and ninety-eight combined. That's you. Surveys will tell your leadership that forty percent of large organizations are \"scaling agents\" — that counts deployments, not builders. The builders are one in a thousand. [advance] And three months later, the people sitting next to you have caught it. Demo by demo, team by team. Every red stack is on the meter. That's the curve your CFO is about to see, and they'll reach for the only tool they have: a cap. This talk is how you get there first.","fig":{"slot":"natives","steps":[1,2]}},{"id":"ask","type":"ask","title":"Your ask upstairs: owned capacity for the people who burn the most, not more seats.","section":"The answer first","min":1,"notes":"Answer first, so you can check my working. The ask you carry upstairs: fund owned capacity for the people who burn the most — you — instead of buying more seats and capping them. Three things get you there. The meter: demand is outrunning price, and that's a finance problem. The leak: when they cap you, the work doesn't stop; it goes somewhere they can't see. The ladder: the architecture that fixes both. Then I'll give you the three sentences for your CFO, CIO and CEO, and the two numbers that turn a talk into a purchase order.","fig":null},{"id":"meter","type":"fig","title":"Token demand rose a millionfold; the price fell sixteenfold. The bill is the problem.","section":"1 · The meter","min":1.5,"notes":"This is the first thing you show upstairs. The needle is tokens a month on a log dial, one big tick for every ten times. 2019 to 2026. [advance] A millionfold. The tariff carriage — price per million — barely moves: sixty dollars to three eighty-five. Everyone tells leadership tokens are getting cheaper, and yesterday's capability is. But the price of the best model stays in the same band, and usage grows faster than prices fall. The bill went up sixty-four thousand times. Type your own monthly burn into the box before your meeting. That number is your opening line.","fig":{"slot":"token-meter","steps":[0,7]}},{"id":"team","type":"big","title":"One three-person team burned 603 billion tokens in a month.","section":"1 · The meter","min":1,"notes":"Here's the other end of the meter. Three people, about a hundred coding agents, six hundred and three billion tokens, one point three million dollars, one month. Upstairs, that's a horror story. In here, it's a picture of you without the cap. Your job is to make sure leadership sees this number in a plan you wrote, not on an invoice they didn't expect.","fig":null},{"id":"flatdies","type":"flow","title":"Every flat plan dies the same way: hooked first, metered second.","section":"1 · The meter","min":1,"notes":"You've lived this as a consumer. The flat plan gets you hooked. Then the five-hour session cap. Then the weekly cap. Then pay-as-you-go overflow. The enterprise version is the same arc with a bigger number: one large agency went from zero to nineteen thousand users in forty-five days and then rationed them. That's the budget detonation. Last year AI was a subscription anyone could forecast. This year it's a meter wired to how hard you work, and it goes off in exactly the quarters you're winning. A CFO can live with a big number. A CFO cannot live with a number that detonates.","fig":null},{"id":"spend","type":"fig","title":"The median business spends $137 a person a year on AI. The best spend half a salary.","section":"1 · The meter","min":1.5,"notes":"So what's a sane number? The industry finally has benchmarks, and the spread is the story. The median business spends a hundred and thirty-seven dollars per person a year. [advance] The top one percent: eighty-nine thousand, growing fourteen percent a month. [advance] Jensen Huang, on the record: a five-hundred-thousand-dollar engineer who doesn't burn two hundred and fifty thousand in tokens has him \"deeply alarmed.\" Half the salary. When you go upstairs, don't defend a big number. Show them where the best sit on this beam and where your company is.","fig":{"slot":"scale","steps":[0,2,3]}},{"id":"could","type":"fig","title":"Models could do 94% of the tasks in computing jobs. We let them do a third.","section":"1 · The meter","min":1.5,"notes":"Spend is one way to see the gap. Work is the other. In March, Anthropic published two numbers per occupation: what share of tasks a model could do, and what share it's observed doing at work. Computer and math jobs: could, ninety-four percent. [advance] Does: thirty-three. [advance] The sixty-one points in between aren't a capability problem. Look at what holds the warp: a clamp, a coin box, a padlock. Permission, plumbing and the meter. You know exactly which of those three is stopping you. Name it upstairs. It's the most fundable sentence you have.","fig":{"slot":"loom","steps":[0,1,2]}},{"id":"doors","type":"fig","title":"When they cap you, the side door is right there, and the contract doesn't cover it.","section":"2 · The leak","min":1.5,"notes":"Be honest with yourselves for a second. The front door is the enterprise contract — metered, not trained on. [advance] They cap it. The bar drops. Your work doesn't stop. It backs up. [advance] And then it goes out the side door, on a personal account. Sixty-six percent of office workers have used AI tools they believed weren't allowed. Eighty-eight percent have shared work information through them. Some of you have done it this month. I'm not here to scold you — I'm here to point out that every time a cap pushes you out that door, your company's intent goes with you. That's the argument you take upstairs: the cap doesn't save money, it moves the work somewhere nobody can see.","fig":{"slot":"doors","steps":[0,1,2]}},{"id":"contract","type":"compare","title":"The contract protects the front door. The training toggle lives at the side door.","section":"2 · The leak","min":1,"notes":"Read the terms and you'll see what they protect: the traffic that goes through the front door. Enterprise, API and commercial traffic is excluded from training at every major lab. The consumer plans are where the training toggle lives, with five-year retention if it's on. And what flows out isn't the database. It's how you work: which tools, which decisions, which features you're building next. The early leak is a leader thinking something through before a dollar is committed. The expensive leak is later: the features and fixes you ship through someone else's model.","fig":null},{"id":"spikes","type":"fig","title":"The labs ship where the usage map is dense: images, code, security, finance, legal.","section":"2 · The leak","min":1.5,"notes":"The labs say this part out loud. Anthropic publishes an Economic Index built by classifying millions of conversations into more than thirty categories of work. That's this table. [advance] Image generation. [advance] Software. [advance] Security. [advance] Finance. [advance] Legal. Each one a capability spike dropped where the map was dense. Nobody's alleging a lab lifted a feature from a customer — it's aggregate, by their own published method. The two glass planes are today's scores: the best open-weight model at 46, runnable on your own iron, uncapped, and the frontier at 58, metered. Most of the map sits under the open plane. [advance] And the dashed cell is the question for your leadership: is ours next?","fig":{"slot":"spikes","steps":[0,1,2,3,4,5,6]}},{"id":"loop","type":"fig","title":"Capping tokens starts an eight-step loop. Owned capacity breaks it at step three.","section":"2 · The leak","min":1.5,"notes":"Put it together and you get a loop, and every step is already happening somewhere. One: usage explodes — that's you. [advance] Two: the meter arrives. [advance] Three: they cap you. [advance] Four: you go personal. [advance] Five: personal accounts train. [advance] Six: intent becomes their roadmap. [advance] Seven: the spike eats the eighty percent. [advance] Eight is the only step your leadership controls. They can't set the labs' prices or what a consumer account trains on. They control whether they cap you. Owned, uncapped capacity throws the switch at step three, and four through seven never happen. That's your whole pitch on one machine.","fig":{"slot":"loop","steps":[0,1,2,3,4,5,6,7]}},{"id":"openvs","type":"models","title":"The best open model now beats last spring's frontier, at a twentieth of the price.","section":"3 · The ladder","min":1.5,"notes":"Here's today's market, on Artificial Analysis's own index, read this weekend. The frontier, Opus 5.5: fifty-eight, about three dollars per million tokens. The best open-weight model in the world, Xiaomi's MiMo: forty-six, for eighteen cents. Opus 4.8 — the frontier in May — forty-two, at three eighty-five. So the open model you can download today beats the frontier of five months ago at a twentieth of the price. If provenance matters to you, the best American open model, Meta's Muse Spark Open, is thirty-nine at seventy-eight cents and a hundred and thirty tokens a second. Either way the pattern holds: run the routine on open weights you own, uncapped, and escalate to the fifty-eight when the problem earns it.","fig":null},{"id":"ladder","type":"fig","title":"Three rungs you own, one gate you rent: routine stays inside, judgment escalates.","section":"3 · The ladder","min":1.5,"notes":"This is what you're asking for. Three rungs inside the fence. [advance] Device: your machine, refreshed now — NPU laptops and workstations. [advance] Workgroup: a desktop inference box your team shares. [advance] Core: the racks, built later, out of the growth you create. [advance] And one gate, the only way out. Escalation to the frontier is earned and metered, and sensitive context is stripped on the way through. [advance] Two rules at once: volume is uncapped on the rungs, because the capacity is yours; escalation is earned, because that's where the meter and the leak live. You stop picking models. The router does it.","fig":{"slot":"ladder","steps":[0,1,2,3,4]}},{"id":"rfp","type":"fig","title":"On a Tuesday, four pieces of an RFP stay inside. Two leave without the bid.","section":"3 · The ladder","min":1.5,"notes":"Make it concrete for them with a Tuesday. Someone drops in an RFP — pricing, technical, capabilities, logistics — and asks what to do first. [advance] The router splits it. Four pieces land on your own rungs and get answered inside. The two hard questions need the outside world. [advance] Watch the gate: the number, the deadline, the bid — stripped, logged, policy-checked. [advance] The world sees a capability search. A human makes the call. That's the demo you build next week to show your leadership the ladder isn't a slide.","fig":{"slot":"rfp","steps":[0,1,2]}},{"id":"vend","type":"fig","title":"Past 5.3 hours a day, owning the box beats renting it. You already work twelve.","section":"3 · The ladder","min":1.5,"notes":"Now the money. Same item — a million tokens of the same open model — four ways to buy it. Cloud GPU: ninety-seven cents. Frontier API at a blended coding rate: about twelve dollars. A wrapped enterprise LLM: up to forty-five. And owned capacity, whose price depends on one thing. [advance] At three hours a day, a dollar seventy-one. [advance] At five point three hours a day it matches cloud; about a five-month break-even. [advance] At twelve hours — your day — forty-three cents. The gap is utilization. Which is the point: you're not asking them to buy boxes for everyone. You're asking them to buy boxes for the people who keep them busy.","fig":{"slot":"vending","steps":[1,2,3]}},{"id":"tubes","type":"fig","title":"Your job upstairs: send each office the one sentence it can sign.","section":"4 · Selling up the chain","min":1.5,"notes":"Here's the part you came for. Your leadership doesn't need this talk. Each office needs one sentence it can sign. [advance] The CFO: a cap costs more than capacity. Their problem isn't the size of the number; it's the detonation. Owned capacity is the predictable number. [advance] The CIO: IT rules for models. A curated model repository, a shim on every device, retrieval that follows the access controls you already have. [advance] The CEO: our decision graph is either our asset or their training data. [advance] Three tubes, three sentences. Don't send the CFO the CEO's sentence.","fig":{"slot":"tubes","steps":[0,1,2,3]}},{"id":"numbers","type":"ba","title":"Bring two numbers upstairs: your token-burn map and your hours a day.","section":"4 · Selling up the chain","min":1,"notes":"Sentences get you the meeting. Numbers get you the purchase order. Bring two. First, the token-burn map: every system in the company with an AI feature, who pays for its tokens, which model it calls, and what happens when that model is down. Your CIO can't answer the last column today. You can. That's your opening. Second, your hours a day: how long you and the people like you keep a box busy. That number turns the vending machine into a payback date. Before, AI is a line item that gets capped. After, it's capacity with a break-even.","fig":null},{"id":"sequence","type":"steps","title":"Ask for it one refresh at a time: your machine now, the team's box next, the core when proven.","section":"4 · Selling up the chain","min":1,"notes":"And don't ask for a datacenter. You'll lose. Nobody can put one down fast enough, and nobody signs a ten-megawatt facility for a usage base that doesn't exist yet. Sequence it around yourselves. Now: an emergency refresh for the power users — don't wait for the cycle. Next: a workgroup box everyone else shares. The core gets built when you've proven it, out of the growth you create. And the frontier stays, through one gate, metered, for the hard calls. Prices are going up, allocation is tighter, and power is the long pole. This is not an IT ticket.","fig":null},{"id":"proof","type":"three","title":"The winners already run agents on a graph, with a human at the gate.","section":"4 · Selling up the chain","min":1,"notes":"When someone upstairs says this is theoretical: Cisco put agents in front of ninety thousand employees this year. Each agent picks its model. AI writes eighty to ninety percent of the first draft of their SEC filing narratives. Primarily on-prem. Meanwhile the average enterprise runs twelve agents and half report to nobody, which is why only eleven percent of planned agentic projects reach production. The difference is the graph and the human at the gate. Your business brain is the highest-intent object your company will ever own. Don't let it run on someone else's meter.","fig":null},{"id":"vote","type":"vote","title":"By 2029 every organization has chosen, by acting or by not acting. Vote.","section":"5 · The fork","min":1.5,"notes":"So here's the fork. By 2029 the capacity crunch, the renewals and the spikes have all arrived. The only variable left is the decision made back here, now. Scan the code and vote for where your organization actually is — not where you'd like it to be. [wait 30–45 seconds; read the tally] That split is the market. And everyone who voted \"renting\" just found out why they're in the room. (Fallback: show of hands; press 1 for own, 2 for rent.)","fig":null},{"id":"futures","type":"futures","title":"Renting goes flat, flat, then vertical. Owning compounds.","section":"5 · The fork","min":1,"notes":"Here's each branch. Rented: the renewal comes per user, in tiers. The natives hit the caps in a quarter. The spend goes flat, flat, then vertical, and the caps didn't stop it; they moved it to the door the contract doesn't cover. By year four, the spike reaches your industry. Owned: the ladder is standard, the agents have guardrails, and the business brain compounds on your own rungs. It's the moment small, fast teams outrun giants. Be that team.","fig":null},{"id":"monday","type":"close","title":"Monday: build the map, log your hours, book three meetings.","section":"Monday","min":1,"notes":"Three things for Monday, and none of them need anyone's permission. Build the map: one page, every system with an AI feature, who pays, which model, what breaks when it's down. Log your hours: two weeks of how long you keep a box busy. Past five point three a day you've paid for the box. Then book three meetings — CFO, CIO, CEO — one sentence each, one ask: capacity for the people who burn the most. Go get it before the meter caps you.","fig":null},{"id":"end","type":"end","title":"Intent is the new oil. Capping tokens is the leak.","section":"","min":0.5,"notes":"The enemy isn't the lab — the router still sends your hardest calls to the best models in the world, and it should. The enemy is the default. The default plan trains. The default deployment meters. The default org caps its best people and then wonders where they went. You're the best people. Go get the capacity. Thank you.","fig":null}],"version":"5.1C","voteUrl":"https://claude.ai/artifact/E7d8J2UQHorFujoQNMyyKw#vote"};</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>(() => {
+  "use strict";
+  const D = window.DECK, SL = D.slides, N = SL.length;
+  const $ = (q, el = document) => el.querySelector(q);
+  const $$ = (q, el = document) => [...el.querySelectorAll(q)];
+  const stage = $("#stage"), slides = $$(".slide", stage);
+  const chan = "BroadcastChannel" in window ? new BroadcastChannel("ai-manifesto-" + (D.version || "v5")) : null;
+  const NS = "ai-manifesto-" + (D.version || "v5") + ":";
+  const store = { get(k) { try { return localStorage.getItem(NS + k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(NS + k, v); } catch {} } };
+  const stepsOf = (k) => (SL[k].fig ? SL[k].fig.steps.length : 1);
+  let i = 0, s = 0;
+
+  // ---------- fit the 1920×1080 stage to the window ----------
+  function fit() {
+    const w = innerWidth, h = innerHeight, k = Math.min(w / 1920, h / 1080);
+    stage.style.transform = `translate(${-960 * k}px, ${-540 * k}px) scale(${k})`;
+  }
+  addEventListener("resize", fit); fit();
+
+  // ---------- figures (live iframes, lazily loaded; the still SVG shows until the figure is ready) ----------
+  function frameOf(k) { return slides[k] && $("iframe", slides[k]); }
+  function load(k) {
+    const f = frameOf(k);
+    if (!f || f.src || document.body.classList.contains("mode-presenter")) return;
+    f.src = f.dataset.src;
+    f.addEventListener("load", () => {
+      f.parentElement.classList.add("live");
+      sendState(k);
+      try { // forward deck keys pressed inside a figure (clickers send PgUp/PgDn)
+        f.contentWindow.addEventListener("keydown", (e) => {
+          const t = e.target, typing = t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA");
+          const arrows = /^Arrow/.test(e.key) && t && t.closest && t.closest(".iso-stage");
+          if (typing || arrows) return;
+          if (onKey(e)) e.preventDefault();
+        });
+      } catch {}
+    }, { once: true });
+  }
+  function sendState(k) {
+    const f = frameOf(k), sl = SL[k];
+    if (!f || !sl.fig || !f.contentWindow) return;
+    const st = sl.fig.steps[k === i ? s : 0];
+    try { f.contentWindow.postMessage({ anatomy: "set", state: st }, "*"); } catch {}
+  }
+  addEventListener("message", (e) => {
+    if (e.data && e.data.anatomy === "ready") slides.forEach((el, k) => { if (frameOf(k) && frameOf(k).contentWindow === e.source) sendState(k); });
+  });
+
+  // ---------- navigation ----------
+  function render(fromRemote) {
+    slides.forEach((el, k) => (el.hidden = k !== i));
+    [i - 1, i, i + 1, i + 2].forEach((k) => k >= 0 && k < N && load(k));
+    const dots = $$(".steps-dots i", slides[i]);
+    dots.forEach((d, k) => d.classList.toggle("on", k <= s));
+    sendState(i);
+    $("#prog").style.width = `${((i + (s + 1) / stepsOf(i)) / N) * 100}%`;
+    $("#count").textContent = `${i + 1} / ${N}`;
+    const sl = SL[i];
+    $("#n-meta").textContent = `${i + 1}/${N} · ${sl.section || "—"} · ~${sl.min} min${stepsOf(i) > 1 ? ` · step ${s + 1}/${stepsOf(i)}` : ""}`;
+    $("#n-text").textContent = sl.notes;
+    if (location.hash !== `#${i + 1}` && !document.body.classList.contains("mode-presenter")) history.replaceState(null, "", `#${i + 1}`);
+    $$("#ov-list li[data-k]").forEach((li) => li.classList.toggle("cur", +li.dataset.k === i));
+    if (!fromRemote && chan) chan.postMessage({ i, s });
+    presenter();
+    if (SL[i].type === "vote") drawQr();
+  }
+  function go(k, st = 0) { i = Math.max(0, Math.min(N - 1, k)); s = Math.max(0, Math.min(stepsOf(i) - 1, st)); render(); }
+  function next() { if (s < stepsOf(i) - 1) { s++; render(); } else if (i < N - 1) go(i + 1, 0); }
+  function prev() { if (s > 0) { s--; render(); } else if (i > 0) go(i - 1, stepsOf(i - 1) - 1); }
+
+  // ---------- overlays ----------
+  const toggle = (id, on) => { const el = $(id); el.hidden = on === undefined ? !el.hidden : !on; return !el.hidden; };
+  const ov = $("#ov-list"); let last = null;
+  SL.forEach((sl, k) => {
+    if (sl.section && sl.section !== last) { const h = document.createElement("li"); h.className = "sec"; h.textContent = sl.section; ov.append(h); }
+    last = sl.section;
+    const li = document.createElement("li"); li.dataset.k = k;
+    const b = document.createElement("button"); b.type = "button";
+    b.innerHTML = `<span class="k">${String(k + 1).padStart(2, "0")}</span><span></span>`;
+    b.lastChild.textContent = sl.title;
+    b.addEventListener("click", () => { toggle("#overview", false); go(k, 0); });
+    li.append(b); ov.append(li);
+  });
+
+  // ---------- keys ----------
+  function onKey(e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return false;
+    const k = e.key;
+    if (["ArrowRight", "ArrowDown", " ", "PageDown", "Enter"].includes(k)) { next(); return true; }
+    if (["ArrowLeft", "ArrowUp", "PageUp", "Backspace"].includes(k)) { prev(); return true; }
+    if (k === "Home") { go(0); return true; }
+    if (k === "End") { go(N - 1); return true; }
+    if (k === "n" || k === "N") { toggle("#notes"); return true; }
+    if (k === "o" || k === "O") { const on = toggle("#overview"); if (on) { const c = $("#ov-list li.cur button"); c && c.focus(); } return true; }
+    if (k === "?") { toggle("#help"); return true; }
+    if (k === "p" || k === "P") { openPresenter(); return true; }
+    if (k === "f" || k === "F") { const el = document.documentElement; (document.fullscreenElement ? document.exitFullscreen() : el.requestFullscreen && el.requestFullscreen()).catch?.(() => {}); return true; }
+    if (k === "Escape") { toggle("#overview", false); toggle("#help", false); toggle("#notes", false); return true; }
+    if (SL[i].type === "vote" && (e.code === "Digit1" || e.code === "Digit2")) { hand(e.code === "Digit1" ? "own" : "rent", e.shiftKey ? -1 : 1); return true; }
+    return false;
+  }
+  addEventListener("keydown", (e) => {
+    if (document.body.classList.contains("mode-vote")) return;
+    const t = e.target; if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA")) return;
+    if (document.body.classList.contains("mode-presenter")) { if (presenterKey(e)) e.preventDefault(); return; }
+    if (onKey(e)) e.preventDefault();
+  });
+  $("#b-next").addEventListener("click", next);
+  $("#b-prev").addEventListener("click", prev);
+  $("#b-help").addEventListener("click", () => toggle("#help"));
+  $("#help").addEventListener("click", () => toggle("#help", false));
+  $$(".fig").forEach((f) => f.addEventListener("pointerleave", () => { try { window.focus(); } catch {} }));
+
+  // ---------- presenter view (same deck, second window, #presenter) ----------
+  let t0 = Number(store.get("v5-t0")) || 0;
+  function openPresenter() {
+    const url = location.href.replace(/#.*$/, "") + "#presenter";
+    let w = null; try { w = window.open(url, "ai-manifesto-presenter", "width=1100,height=760"); } catch {}
+    if (!w) { toggle("#help", true); }
+  }
+  const plan = SL.reduce((a, sl, k) => (a.push((a[k - 1] || 0) + (k ? SL[k - 1].min : 0)), a), []);
+  function presenter() {
+    if (!document.body.classList.contains("mode-presenter")) return;
+    const sl = SL[i];
+    $("#p-now").textContent = `${i + 1}. ${sl.title}`;
+    $("#p-step").textContent = `${sl.section || "—"}${stepsOf(i) > 1 ? ` · step ${s + 1} of ${stepsOf(i)}` : ""} · ~${sl.min} min`;
+    $("#p-notes").textContent = sl.notes;
+    $("#p-next").textContent = i < N - 1 ? `${i + 2}. ${SL[i + 1].title}` : "End";
+  }
+  function tick() {
+    if (!document.body.classList.contains("mode-presenter")) return;
+    if (!t0) { t0 = Date.now(); store.set("v5-t0", String(t0)); }
+    const el = (Date.now() - t0) / 1000, m = Math.floor(el / 60), sec = Math.floor(el % 60);
+    $("#p-clock").textContent = `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+    const due = plan[i], diff = el / 60 - due;
+    const pace = $("#p-pace");
+    pace.textContent = `plan for this slide: ${due.toFixed(1)} min · ${diff > 0.5 ? `${diff.toFixed(1)} min behind` : diff < -0.5 ? `${(-diff).toFixed(1)} min ahead` : "on pace"} · ends at 30:00`;
+    pace.classList.toggle("late", diff > 1);
+  }
+  function presenterKey(e) {
+    if (["ArrowRight", " ", "PageDown", "Enter"].includes(e.key)) { next(); return true; }
+    if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { prev(); return true; }
+    return false;
+  }
+  $("#p-reset").addEventListener("click", () => { t0 = Date.now(); store.set("v5-t0", String(t0)); tick(); });
+  $("#p-prev").addEventListener("click", prev);
+  $("#p-next-b").addEventListener("click", next);
+  if (chan) chan.onmessage = (e) => { const d = e.data || {}; if (Number.isInteger(d.i)) { i = d.i; s = d.s || 0; render(true); } if (d.vote) applyTally(d.vote); };
+
+  // ---------- the vote ----------
+  const counts = { own: 0, rent: 0 }, hands = { own: 0, rent: 0 };
+  let dbCount = { own: 0, rent: 0 };
+  try { const h = JSON.parse(store.get("v5-hands") || "null"); if (h) Object.assign(hands, h); } catch {}
+  function applyTally(c) {
+    Object.assign(counts, c);
+    const total = counts.own + counts.rent || 1;
+    ["own", "rent"].forEach((o) => {
+      $$(`[data-count="${o}"]`).forEach((el) => (el.textContent = counts[o]));
+      $$(`[data-bar="${o}"]`).forEach((el) => (el.style.width = `${(counts[o] / total) * 100}%`));
+    });
+    const sum = counts.own + counts.rent;
+    $$("[data-tally]").forEach((el) => (el.textContent = sum ? `This room: ${counts.own} own the boundary · ${counts.rent} keep renting` : ""));
+  }
+  function recount(remote) { applyTally({ own: dbCount.own + hands.own, rent: dbCount.rent + hands.rent }); if (!remote && chan) chan.postMessage({ vote: counts }); }
+  function hand(o, d) { hands[o] = Math.max(0, hands[o] + d); store.set("v5-hands", JSON.stringify(hands)); recount(); }
+  let qrDone = false;
+  function drawQr() {
+    const url = D.voteUrl;
+    $$("[data-vote-url]").forEach((el) => (el.textContent = url ? url.replace(/^https?:\/\//, "") : "Publish the deck to get a vote link."));
+    if (qrDone || !url || !window.QRCode) return;
+    try { new QRCode($("#qr"), { text: url, width: 348, height: 348, colorDark: "#1b1b19", colorLight: "#f4f4ef", correctLevel: QRCode.CorrectLevel.M }); qrDone = true; } catch {}
+  }
+  const useCap = (name) => (window.claude && typeof window.claude.use === "function" ? window.claude.use(name) : Promise.resolve(null));
+  async function liveTally() {
+    const db = await useCap("db");
+    const status = (t) => $$("[data-vote-status]").forEach((el) => (el.textContent = t));
+    if (!db) { status("Show of hands works too: press 1 or 2 to count them."); return; }
+    status("Live: votes arrive as people tap.");
+    db.collection("votes").onSnapshot((snap) => {
+      const c = { own: 0, rent: 0 };
+      snap.docs.forEach((d) => { const v = d.data(); if (v && (v.choice === "own" || v.choice === "rent")) c[v.choice]++; });
+      dbCount = c; recount();
+    }, () => status("The live count paused. Hands still count: press 1 or 2."));
+  }
+
+  // audience page: #vote
+  async function votePage() {
+    document.body.classList.add("mode-vote");
+    toggle("#votepage", true);
+    const st = $("#vp-status"), btns = $$("[data-vote]");
+    const [db, user] = await Promise.all([useCap("db"), useCap("user")]);
+    const id = user ? await user.id() : null;
+    if (!db || !id) { st.textContent = "Voting needs you signed in to claude.ai with access to this deck. If you can't, raise your hand instead."; btns.forEach((b) => (b.disabled = true)); return; }
+    const mine = db.doc(`votes/${id}`);
+    try { const snap = await mine.get(); const v = snap.exists && snap.data(); if (v && v.choice) { btns.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.vote === v.choice))); st.textContent = "Your vote is in. Tap the other one to change it."; } } catch {}
+    let busy = false;
+    btns.forEach((b) => b.addEventListener("click", async () => {
+      if (busy) return; busy = true;
+      try {
+        await mine.set({ choice: b.dataset.vote, at: new Date().toISOString() });
+        btns.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+        st.textContent = `Counted: ${$("b", b).textContent}. Watch the screen. Tap the other one to change your vote.`;
+      } catch (err) { st.textContent = "That vote didn't go through. You may only have view access; raise your hand instead."; }
+      busy = false;
+    }));
+  }
+
+  // ---------- boot ----------
+  const hash = location.hash.slice(1);
+  if (hash === "vote") { votePage(); return; }
+  if (hash === "presenter") { document.body.classList.add("mode-presenter"); toggle("#presenter", true); setInterval(tick, 1000); tick(); }
+  const start = Number(hash);
+  if (Number.isInteger(start) && start >= 1 && start <= N) i = start - 1;
+  else { const saved = Number(store.get("v5-slide")); if (hash !== "presenter" && saved >= 1 && saved <= N) i = saved - 1; }
+  addEventListener("beforeunload", () => store.set("v5-slide", String(i + 1)));
+  recount(true);
+  render();
+  liveTally();
+})();
+</script>

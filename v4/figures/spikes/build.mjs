@@ -199,14 +199,16 @@ function sheet(z) {
   return `<g class="sheet"><path d="${s.fill}" style="fill:var(--anatomy-top);fill-opacity:.22;stroke:none"/><path d="${s.shades.join("")}" style="fill:var(--anatomy-shade-1);fill-opacity:.6;stroke:none"/>${L(s.crease, { tone: "faint" })}${L(s.outline, { tone: "mid" })}</g>`;
 }
 
-function tab(z, line1, line2) {
-  const plan = { x: -148, y: SHEET.y + SHEET.d, w: 44, d: 0.8, r: 0.3 };
+// a tab hangs below its plane, or (above = true) stands on it, so two close planes never stack their tabs
+function tab(z, line1, line2, above = false) {
+  const plan = { x: above ? -136 : -148, y: SHEET.y + SHEET.d, w: 44, d: 0.8, r: 0.3 };
   const cx = plan.x + plan.w / 2;
   const face = (h) => k.sideMatrix([cx, plan.y + plan.d], h, P, "left");
+  const top = above ? z + GLASS + 14.4 : z;
   return [
-    S(k.slabOf(plan, z - 14.4, 14.4 + GLASS, P, 2), { tone: "mid", crease: "none" }),
-    k.faceTextSvg(face(z - 5.4), line1, { size: 4.6, tone: "hi", anchor: "middle" }),
-    k.faceTextSvg(face(z - 11.6), line2, { size: 4.2, tone: "mid", anchor: "middle" }),
+    S(k.slabOf(plan, top - 14.4, 14.4 + GLASS, P, 2), { tone: "mid", crease: "none" }),
+    k.faceTextSvg(face(top - 5.4), line1, { size: 4.6, tone: "hi", anchor: "middle" }),
+    k.faceTextSvg(face(top - 11.6), line2, { size: 4.2, tone: "mid", anchor: "middle" }),
   ].join("");
 }
 
@@ -276,7 +278,7 @@ function scene(u) {
       layer(1),
       `<g data-slot="1">${slot === 1 ? headSvg : ""}</g>`,
       sheet(Z61),
-      tab(Z61, `FRONTIER · ${M.INDEX.frontier}`, "METERED"),
+      tab(Z61, `FRONTIER · ${M.INDEX.frontier}`, "METERED", true),
       layer(2),
       `<g data-slot="2">${slot === 2 ? headSvg : ""}</g>`,
       L(ropeAt(k, G, P, pose.x, pose.y, pose.z), { tone: "hi" }).replace("<path", '<path data-part="rope" style="stroke-width:1.1"'),
