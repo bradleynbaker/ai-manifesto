@@ -4,7 +4,7 @@
 export const config = { matcher: "/:path*" };
 
 export default function middleware(request) {
-  const expected = process.env.TALK_PASSWORD;
+  const expected = (process.env.TALK_PASSWORD || "").trim();
   const header = request.headers.get("authorization") || "";
   if (expected && header.startsWith("Basic ")) {
     try {
