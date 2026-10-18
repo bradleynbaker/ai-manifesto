@@ -9,6 +9,8 @@
 //   MiMo-V2.6-Pro (Xiaomi, MIT)  46 · $0.18 · 48.0 tok/s   best open weights
 //   Claude Opus 4.8 (max)        42 · $3.85 · 64.9 tok/s   released 28 May 2026; GovCloud 30 Jun 2026
 //   Muse Spark Open (Meta)       39 · $0.78 · 130.7 tok/s  best US open weights (Muse Model License)
+//   Nemotron 3.5 Super VL        26 · $0.14 · 388 tok/s    NVIDIA, OpenMDW-1.1, released 15 Oct 2026
+//   Muse Wonder Full (closed)    56 · subscription only     Meta, 12 Oct 2026; the open Muse is its small sibling
 import { cpSync, rmSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { join } from "node:path";
@@ -18,6 +20,9 @@ export const MODELS = {
   open: { name: "MiMo-V2.6-Pro (Xiaomi)", short: "MiMo-V2.6-Pro", index: 46, price: 0.18, tps: 48, tag: "best open weights · MIT" },
   opus48: { name: "Claude Opus 4.8", short: "Opus 4.8", index: 42, price: 3.85, tps: 64.9, tag: "last spring's frontier" },
   usopen: { name: "Muse Spark Open (Meta)", short: "Muse Spark Open", index: 39, price: 0.78, tps: 130.7, tag: "best US open weights" },
+  nemotron: { name: "Nemotron 3.5 Super VL (NVIDIA)", short: "Nemotron 3.5 Super", index: 26, price: 0.14, tps: 388, tag: "NVIDIA · OpenMDW licence" },
+  // closed, no API price: Muse Wonder Full 56 (subscription only), Muse Wonder 52 ($4 / $20 per M), released 12 Oct 2026
+  wonderFull: { name: "Muse Wonder Full (Meta, closed)", short: "Muse Wonder Full", index: 56 },
 };
 
 const F = MODELS.frontier;

@@ -13,8 +13,8 @@ export function talk(v) {
     title: "An AI Manifesto",
     thesis: "Intent is the new oil. Capping tokens is the leak.",
     speaker: "Brad Baker",
-    edition: pick(v, "V5.1G · government", "V5.1C · commercial"),
-    version: pick(v, "5.1G", "5.1C"),
+    edition: pick(v, "V5.1.1G · government", "V5.1C · commercial"),
+    version: pick(v, "5.1.1G", "5.1C"),
     minutes: 30,
   };
 }
@@ -192,22 +192,31 @@ export function slides(v) {
   });
 
   // ───────────────────────────── the ladder ─────────────────────────────
-  S.push({
+  S.push(G ? {
     id: "openvs", type: "models", section: "3 · The ladder", min: 1.5,
-    title: pick(v, "Open weights now beat Opus 4.8, the frontier GovCloud got in June.", "The best open model now beats last spring's frontier, at a twentieth of the price."),
+    title: "American open weights now sit three points behind Opus 4.8, at a fifth of the price.",
     models: [
-      { ...M.frontier, tag: pick(v, "frontier · GovCloud 22 Sep", "frontier · metered") },
-      { ...M.open, tag: pick(v, "best open · Xiaomi, China", "best open weights · MIT licence"), hot: true },
-      { ...M.opus48, tag: pick(v, "May's frontier · GovCloud 30 Jun", "the frontier in May") },
+      { ...M.frontier, tag: "Anthropic · GovCloud 22 Sep" },
+      { ...M.opus48, tag: "Anthropic · GovCloud 30 Jun" },
+      { ...M.usopen, tag: "Meta · sibling of Wonder Full", hot: true },
+      { ...M.nemotron, tag: "NVIDIA · permissive licence · 120B" },
+    ],
+    line: "Meta's closed Muse Wonder Full scores 56. Watch what Meta opens next.",
+    caveat: "Caveat: most benchmarks are gamed. Labs tune to the test and publish the wins. Trust your own evals, on your own work.",
+    source: "US-built models only. Artificial Analysis Intelligence Index v4.3.2, read 18 Oct 2026 (Muse Wonder Full: 12 Oct); blended $/M at 7:2:1; first-party speed.",
+    notes: `Every model on this slide is American. Today's market, on Artificial Analysis's own index, read this weekend. The frontier, Opus 5.5: fifty-eight, in GovCloud since September twenty-second. Opus 4.8 — May's frontier, in GovCloud since June — forty-two. Then the open weights you can run on your own iron. Meta's Muse Spark Open: thirty-nine. Three points behind Opus 4.8, at a fifth of the price and twice the speed. And it's the small open sibling of something bigger: Meta's closed Muse Wonder Full scores fifty-six, two points off the frontier, released last week. Watch what Meta opens next. NVIDIA's Nemotron 3.5 Super: twenty-six, but fourteen cents a million, nearly four hundred tokens a second, on a permissive licence — the workhorse for the routine eighty percent. Read Muse's licence before any defense deployment; Nemotron's is the cleaner one. Now the caveat, and say it out loud: most benchmarks are gamed. Labs tune to the test and publish the wins. These numbers tell you the shape of the market. Your own evals, on your own work, tell you what to buy.`,
+  } : {
+    id: "openvs", type: "models", section: "3 · The ladder", min: 1.5,
+    title: "The best open model now beats last spring's frontier, at a twentieth of the price.",
+    models: [
+      { ...M.frontier, tag: "frontier · metered" },
+      { ...M.open, tag: "best open weights · MIT licence", hot: true },
+      { ...M.opus48, tag: "the frontier in May" },
       { ...M.usopen, tag: "best US open weights · Muse licence" },
     ],
-    line: pick(v,
-      "The best US open model sits three points behind Opus 4.8, at a fifth of the price and twice the speed.",
-      "Run open weights uncapped on capacity you own. Escalate to the 58 for judgment only."),
+    line: "Run open weights uncapped on capacity you own. Escalate to the 58 for judgment only.",
     source: "Artificial Analysis Intelligence Index v4.3.2 and model pages, read 18 Oct 2026. Blended $/M at 7:2:1 cache-hit:input:output; output speed on the first-party API.",
-    notes: pick(v,
-      `Here's today's market, on Artificial Analysis's own index, read this weekend. The frontier, Opus 5.5: fifty-eight. It reached GovCloud on September twenty-second. The best open-weight model in the world, Xiaomi's MiMo: forty-six, for eighteen cents per million tokens. Opus 4.8 — the model GovCloud got in June, May's frontier — forty-two, at three eighty-five. Read that again: pure open source is now ahead of the frontier model a lot of your environments were built around. Then provenance. The open leaders are Chinese, and for most of you that's a no. The best American open model, Meta's Muse Spark Open, is thirty-nine: three points behind Opus 4.8, a fifth of the price, twice the speed. Read its licence before a defense deployment. Everything routine runs on that, uncapped, on iron you own.`,
-      `Here's today's market, on Artificial Analysis's own index, read this weekend. The frontier, Opus 5.5: fifty-eight, about three dollars per million tokens. The best open-weight model in the world, Xiaomi's MiMo: forty-six, for eighteen cents. Opus 4.8 — the frontier in May — forty-two, at three eighty-five. So the open model you can download today beats the frontier of five months ago at a twentieth of the price. If provenance matters to you, the best American open model, Meta's Muse Spark Open, is thirty-nine at seventy-eight cents and a hundred and thirty tokens a second. Either way the pattern holds: run the routine on open weights you own, uncapped, and escalate to the fifty-eight when the problem earns it.`),
+    notes: `Here's today's market, on Artificial Analysis's own index, read this weekend. The frontier, Opus 5.5: fifty-eight, about three dollars per million tokens. The best open-weight model in the world, Xiaomi's MiMo: forty-six, for eighteen cents. Opus 4.8 — the frontier in May — forty-two, at three eighty-five. So the open model you can download today beats the frontier of five months ago at a twentieth of the price. If provenance matters to you, the best American open model, Meta's Muse Spark Open, is thirty-nine at seventy-eight cents and a hundred and thirty tokens a second. Either way the pattern holds: run the routine on open weights you own, uncapped, and escalate to the fifty-eight when the problem earns it.`,
   });
 
   S.push({

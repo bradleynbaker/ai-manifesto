@@ -90,7 +90,7 @@ const R = {
     return `${head(s, s.n)}${title(s)}
     <div class="models"><div class="mh"><span></span>${cols.map(([, l]) => `<span>${esc(l)}</span>`).join("")}</div>
     ${s.models.map((m) => `<div class="mr${m.hot ? " hot" : ""}"><div class="mn"><b>${esc(m.short)}</b><span>${esc(m.tag)}</span></div>${cols.map((c) => cell(m, c)).join("")}</div>`).join("")}</div>
-    <p class="line">${esc(s.line)}</p>${source(s)}`;
+    <p class="line">${esc(s.line)}</p>${s.caveat ? `<p class="caveat">${esc(s.caveat)}</p>` : ""}${source(s)}`;
   },
   bars: (s) => {
     const row = (r) => {
