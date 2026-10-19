@@ -71,14 +71,14 @@ export function slides(v) {
 
   S.push({
     id: "ask", type: "ask", section: "The answer first", min: 1,
-    title: "Your ask upstairs is owned capacity for the people who use the most, not more seats.",
+    title: "Your ask upstairs is owned capacity for the people who use the most, not more metered tokens.",
     cols: [
       { k: "The meter", v: "Demand grows faster than prices fall, so the bill spikes in the quarters you're most productive." },
       { k: "The leak", v: "If they cap you, the work moves to tools the contract doesn't cover." },
       { k: "The ladder", v: "Three levels of capacity you own, and one metered gate to the frontier." },
     ],
     lead: { k: "Your kit", v: "Three sentences, two numbers and one ask. You'll leave with all of them." },
-    notes: `I'll give you the answer first so you can check my reasoning as we go. The ask you take upstairs is to fund owned capacity for the people who use the most, which is you, instead of buying more seats and capping them. Three things get you there. The meter: demand is growing faster than prices are falling, and that turns into a finance problem. The leak: when you're capped, the work doesn't stop, it moves somewhere nobody can see. The ladder: the setup that fixes both. After that I'll give you one sentence each for your ${G ? "CFO, your CIO and your agency head" : "CFO, your CIO and your CEO"}, and the two numbers that turn a conversation into a purchase order.`,
+    notes: `I'll give you the answer first so you can check my reasoning as we go. The ask you take upstairs is to fund owned capacity for the people who use the most, which is you, instead of buying more tokens on a meter and then capping them. Three things get you there. The meter: demand is growing faster than prices are falling, and that turns into a finance problem. The leak: when you're capped, the work doesn't stop, it moves somewhere nobody can see. The ladder: the setup that fixes both. After that I'll give you one sentence each for your ${G ? "CFO, your CIO and your agency head" : "CFO, your CIO and your CEO"}, and the two numbers that turn a conversation into a purchase order.`,
   });
 
   // ───────────────────────────── the meter ─────────────────────────────
@@ -223,17 +223,17 @@ export function slides(v) {
 
   S.push({
     id: "rfp", type: "fig", layout: "wide", section: "3 · The ladder", min: 1.5,
-    title: "When you write the RFP, four parts are drafted inside and two go out with the budget removed.",
+    title: "Use AI to write the capacity RFP: give it your timeline and budget, and get the requirements you want.",
     fig: { slot: "rfp", steps: [0, 1, 2], board: true },
     source: pick(v,
       "Illustrative workflow from the manifesto. Source selection plans and technical evaluation plans are source selection information under FAR 2.101.",
       "Illustrative workflow from the manifesto."),
     notes: pick(v,
-      `Most of you write the solicitations, so let's use one as the example. It's Tuesday, and you're drafting an RFP. [advance] The router splits the work. Requirements, evaluation criteria, security clauses and the schedule all come from documents you already have, so agents on your own machines draft them and nothing leaves. Two parts need outside information: market research on who can do the work, and current commercial pricing. [advance] Those two go out through the gate. Before they do, the solicitation number, the budget and the evaluation plan are removed, and the request is logged. That matters, because source selection plans and technical evaluation plans are source selection information under the FAR. [advance] The outside model only sees a general capability question. The answers come back in, and you make the decisions. Build this for your next solicitation and show it to your CIO. It's also how you'll write the solicitation for the capacity itself.`,
-      `Many of you write the RFPs your company uses to buy services and software, so let's use one as the example. It's Tuesday, and you're drafting an RFP. [advance] The router splits the work. Requirements, evaluation criteria, security terms and the schedule all come from documents you already have, so agents on your own machines draft them and nothing leaves. Two parts need outside information: market research on who can do the work, and current pricing. [advance] Those two go out through the gate. Before they do, the RFP number, the budget and the evaluation plan are removed, and the request is logged. Your budget and the way you'll score vendors are exactly what a vendor would most like to see. [advance] The outside model only sees a general capability question. The answers come back in, and you make the decisions. Build this for your next RFP and show it to your leadership. It's also how you'll write the RFP for the capacity itself.`),
+      `Most of you write the solicitations, so write the one for this capacity with AI, on your own machines. Give it your timeline and a budget to work from. For example: four million dollars, with five years of support, running before the end of the fiscal year. Ask it what that buys and what the requirements have to say so you get it on time. [advance] The router splits the work. Requirements, evaluation criteria, security clauses and the schedule come from documents you already have, so agents on your own machines draft them and nothing leaves. Two parts need outside information: market research on who can deliver by your date, and current pricing. [advance] Those two go out through the gate with the solicitation number, the budget and the evaluation plan removed, and the request is logged. That matters, because source selection plans and technical evaluation plans are source selection information under the FAR. [advance] The outside model only sees a general capability question, and you make the decisions. The follow-up site gives you the prompt and a rough estimate. Or ask us, and we'll give you an estimate.`,
+      `Many of you write the RFPs your company buys with, so write the one for this capacity with AI, on your own machines. Give it your timeline and a budget to work from. For example: four million dollars, with five years of support, running next quarter. Ask it what that buys and what the requirements have to say so you get it on time. [advance] The router splits the work. Requirements, evaluation criteria, security terms and the schedule come from documents you already have, so agents on your own machines draft them and nothing leaves. Two parts need outside information: market research on who can deliver by your date, and current pricing. [advance] Those two go out through the gate with the RFP number, the budget and the evaluation plan removed, and the request is logged. Your budget and the way you'll score vendors are exactly what a vendor would most like to see. [advance] The outside model only sees a general capability question, and you make the decisions. The follow-up site gives you the prompt and a rough estimate. Or ask us, and we'll give you an estimate.`),
   });
 
-  // ───────────────────────────── selling up ─────────────────────────────
+// ───────────────────────────── selling up ─────────────────────────────
   S.push({
     id: "tubes", type: "fig", layout: "wide", section: "4 · Selling up the chain", min: 1.5,
     title: "Your job upstairs is to give each office one sentence it can agree to.",
