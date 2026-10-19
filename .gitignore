@@ -1,4 +1,6 @@
 v4/figures/*__*/
 v5.1/*/files.json
+v5.2/*/files.json
+v5.*/*/audio/
 .vercel
 .env*
