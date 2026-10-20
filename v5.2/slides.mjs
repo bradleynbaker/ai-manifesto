@@ -31,7 +31,7 @@ export function slides(v) {
     id: "cover", type: "cover", section: "", min: 0.5,
     title: "Intent is the new oil. Capping tokens is the leak.",
     kicker: pick(v, "For the government's AI natives", "For the one in a thousand"),
-    meta: ["Brad Baker", "25 minutes", "one vote"],
+    meta: ["Brad Baker", "25 minutes", "a vote on where we think we are going"],
     art: "loop",
     notes: pick(v,
       `This talk is for the people in the agency who already build with AI: the ones who wired an agent to a harness on their own time because the procurement queue was eighteen months long. You can see something your leadership can't see yet. In the next twenty-five minutes I want to give you the facts and the sentences to take upstairs, so that you come back with capacity instead of a cap. At the end we'll vote, and then we'll take questions.`,
